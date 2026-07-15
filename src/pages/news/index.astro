@@ -1,0 +1,35 @@
+---
+import Base from '../../layouts/Base.astro';
+import ContactBand from '../../components/ContactBand.astro';
+import { getCollection } from 'astro:content';
+
+const news = (await getCollection('news')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+const fmt = (d: Date) =>
+  `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+---
+<Base title="ニュース" description="GRITTY株式会社からのお知らせ・プレスリリース一覧。">
+  <section class="bg-ink">
+    <div class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
+      <p class="font-en text-xs font-bold uppercase tracking-[0.3em] text-cyan">News</p>
+      <h1 class="mt-4 font-display text-4xl font-black text-white md:text-5xl">ニュース</h1>
+    </div>
+  </section>
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
+      <ul class="divide-y divide-line border-y border-line">
+        {news.map((n) => (
+          <li>
+            <a href={`/news/${n.slug}/`} class="group flex flex-col gap-2 py-6 sm:flex-row sm:items-center sm:gap-6">
+              <time class="font-en text-sm text-ink/50">{fmt(n.data.date)}</time>
+              <span class="w-fit border border-teal px-2 py-0.5 text-xs font-bold text-teal">{n.data.category}</span>
+              <span class="font-medium transition group-hover:text-teal">{n.data.title}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+  <ContactBand />
+</Base>

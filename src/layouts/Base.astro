@@ -1,0 +1,61 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import site from '../data/site.json';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const pageTitle = title ? `${title} | GRITTY株式会社` : 'GRITTY株式会社 | 現場の感覚を、科学の裏付けへ。';
+const pageDesc = description ?? 'GRITTY株式会社は、野球を中心としたスポーツデータ分析・フィジカル測定・コンディション管理、アプリ開発、動画制作を行う会社です。測定して終わりではなく、選手の成長に伴走します。';
+---
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{pageTitle}</title>
+  <meta name="description" content={pageDesc} />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={pageDesc} />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={site.company_name} />
+  <link rel="icon" type="image/png" href="/images/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
+  <script is:inline>
+    // CMS招待メールのリンクから /admin/ へリダイレクト
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('init', (user) => {
+          if (!user) {
+            window.netlifyIdentity.on('login', () => { document.location.href = '/admin/'; });
+          }
+        });
+      }
+    });
+  </script>
+</head>
+<body class="bg-white font-body text-ink antialiased">
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-cyan focus:px-4 focus:py-2 focus:text-ink">本文へスキップ</a>
+  <Header />
+  <main id="main">
+    <slot />
+  </main>
+  <Footer />
+</body>
+</html>
+
+<style is:global>
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+  ::selection { background: #35D6DB; color: #0E1F2B; }
+</style>

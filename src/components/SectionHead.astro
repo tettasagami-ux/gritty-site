@@ -1,0 +1,12 @@
+---
+interface Props {
+  en: string;
+  ja: string;
+  light?: boolean;
+}
+const { en, ja, light = false } = Astro.props;
+---
+<div class="mb-10">
+  <p class={`font-en text-xs font-bold uppercase tracking-[0.25em] ${light ? 'text-cyan' : 'text-teal'}`}>{en}</p>
+  <h2 class={`mt-3 font-display text-3xl font-black leading-tight md:text-4xl ${light ? 'text-white' : 'text-ink'}`}>{ja}</h2>
+</div>

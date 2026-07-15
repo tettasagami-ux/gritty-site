@@ -1,0 +1,201 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import ContactBand from '../components/ContactBand.astro';
+import site from '../data/site.json';
+import { getCollection } from 'astro:content';
+
+const news = (await getCollection('news'))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+const fmt = (d: Date) =>
+  `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+
+const services = [
+  {
+    en: 'Sports Science',
+    ja: 'スポーツサイエンス',
+    bar: 'bg-cyan',
+    items: ['野球データ分析', 'フィジカル測定', 'コンディション管理'],
+    desc: 'Rapsodoと1000fpsハイスピードカメラで球質・フォームを数値化。感覚と数値を同じテーブルに乗せて、選手の成長に伴走します。',
+  },
+  {
+    en: 'Digital Solutions',
+    ja: 'デジタルソリューション',
+    bar: 'bg-teal',
+    items: ['アプリ開発', 'デジタル導入支援'],
+    desc: '現場で本当に使われるアプリを自社開発。計測から記録・育成まで、チームのデジタル化を一気通貫で支えます。',
+  },
+  {
+    en: 'Creative & Events',
+    ja: 'クリエイティブ＆イベント',
+    bar: 'bg-gold',
+    items: ['動画制作', 'YouTube運営', 'イベント企画運営'],
+    desc: '現場の熱量をそのまま伝える映像制作と、チーム・スクールの発信を支えるYouTube運営、イベントの企画運営まで。',
+  },
+];
+
+const cycle = [
+  { ja: '感覚', desc: '選手自身が感じるイメージや課題感を出発点に。', bar: 'bg-cyan' },
+  { ja: '計測', desc: 'Rapsodoとカメラで球質・フォーム・フィジカルを数値化。', bar: 'bg-teal' },
+  { ja: '仮説・分析', desc: '数値の相関を読み解き、根本的な課題と改善仮説を抽出。', bar: 'bg-panel', dark: true },
+  { ja: '改善', desc: '選手・指導者が納得感のある個別最適化メニューへ。', bar: 'bg-teal' },
+  { ja: '再測定・成長', desc: '小さな変化を数値で確認し、自信と次の仮説へ。', bar: 'bg-gold' },
+];
+
+const products = [
+  {
+    name: 'GRITTY DataBase',
+    tag: '投球分析プラットフォーム',
+    desc: '球速や変化量（ムーブメント）プロファイルを可視化し、コーチと選手がデータで投球を最適化。',
+  },
+  {
+    name: 'GRITTY Training Management',
+    tag: 'パフォーマンス管理',
+    desc: 'コーチが選手ごとに練習メニューを割り当て、選手がリアルタイムで進捗を記録。',
+  },
+  {
+    name: 'GRITTY Conditioning',
+    tag: 'コンディション記録アプリ',
+    desc: '体重・投球数・トレーニング量を記録し、年間の伴走を毎日の記録でつなぐ。',
+  },
+];
+---
+<Base>
+  <!-- Hero: 営業資料の表紙と同じ 濃紺×クリーム の分割構成 -->
+  <section class="bg-ink">
+    <div class="mx-auto grid max-w-6xl md:grid-cols-[3fr_2fr]">
+      <div class="px-4 py-20 md:px-6 md:py-28">
+        <p class="font-en text-xs font-bold uppercase tracking-[0.3em] text-cyan">Sports Science × Digital × Creative</p>
+        <h1 class="mt-6 whitespace-pre-line font-display text-4xl font-black leading-tight text-white md:text-5xl lg:text-6xl">{site.hero_catch}</h1>
+        <div class="mt-6 h-1 w-16 bg-gold"></div>
+        <p class="mt-6 max-w-xl leading-relaxed text-white/75">{site.hero_sub}</p>
+        <div class="mt-10 flex flex-wrap gap-4">
+          <a href="/services/" class="rounded bg-cyan px-6 py-3 font-bold text-ink transition hover:bg-white">事業内容を見る</a>
+          <a href="/contact/" class="rounded border border-white/30 px-6 py-3 font-bold text-white transition hover:border-cyan hover:text-cyan">無料で相談する</a>
+        </div>
+      </div>
+      <div class="relative hidden bg-cream md:block">
+        <div class="flex h-full flex-col justify-center px-8 py-12">
+          <p class="font-en text-[11px] font-bold uppercase tracking-[0.25em] text-teal">Our Stance</p>
+          <p class="mt-4 font-display text-2xl font-black leading-snug text-ink">
+            「データの会社」ではなく<br /><span class="text-gold">「伴走する会社」</span>。
+          </p>
+          <p class="mt-4 text-sm leading-relaxed text-ink/70">
+            数値は選手の感覚を否定するためではなく、感覚の解像度を上げるためにあります。
+          </p>
+          <div class="mt-6 border-l-4 border-teal bg-white p-4 text-sm">
+            <p class="font-en text-[10px] font-bold uppercase tracking-widest text-teal">Sense × Data</p>
+            <p class="mt-1 font-bold text-ink">両方を同じテーブルに乗せることが、GRITTYの中心です。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 測定サイクル（シグネチャー要素） -->
+  <section class="bg-cream">
+    <div class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <SectionHead en="Measurement Cycle" ja="感覚 → 計測 → 分析 → 改善 → 再測定" />
+        <p class="mb-10 max-w-xs text-sm font-bold text-gold">二度目がある測定だけが、選手の成長を裏づけられる。</p>
+      </div>
+      <ol class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        {cycle.map((c) => (
+          <li class={`border border-line bg-white shadow-sm ${c.dark ? '!bg-panel' : ''}`}>
+            <div class={`h-1 ${c.bar}`}></div>
+            <div class="p-5">
+              <h3 class={`font-display text-lg font-black ${c.dark ? 'text-white' : 'text-ink'}`}>{c.ja}</h3>
+              <p class={`mt-2 text-xs leading-relaxed ${c.dark ? 'text-white/70' : 'text-ink/60'}`}>{c.desc}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 3事業 -->
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
+      <SectionHead en="Service" ja="3つの事業で、現場を支える。" />
+      <div class="grid gap-6 md:grid-cols-3">
+        {services.map((s) => (
+          <a href="/services/" class="group flex flex-col border border-line bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+            <div class={`h-1.5 ${s.bar}`}></div>
+            <div class="flex flex-1 flex-col p-6">
+              <p class="font-en text-xs font-bold uppercase tracking-[0.2em] text-teal">{s.en}</p>
+              <h3 class="mt-2 font-display text-xl font-black text-ink">{s.ja}</h3>
+              <ul class="mt-4 space-y-1.5">
+                {s.items.map((i) => (
+                  <li class="flex items-center gap-2 text-sm font-medium text-ink/80">
+                    <span class={`h-1.5 w-1.5 shrink-0 ${s.bar}`}></span>{i}
+                  </li>
+                ))}
+              </ul>
+              <p class="mt-4 flex-1 text-sm leading-relaxed text-ink/60">{s.desc}</p>
+              <p class="mt-5 text-sm font-bold text-teal transition group-hover:text-cyan">詳しく見る →</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- プロダクト -->
+  <section class="bg-ink">
+    <div class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
+      <SectionHead en="Products" ja="現場で使う道具を、自社でつくる。" light />
+      <p class="-mt-4 mb-10 max-w-2xl leading-relaxed text-white/70">
+        GRITTYは分析サービスだけでなく、野球の現場で使うアプリを自社開発しています。計測から記録・育成までを一気通貫で支えます。
+      </p>
+      <div class="grid gap-6 md:grid-cols-3">
+        {products.map((p) => (
+          <div class="border border-white/10 bg-panel p-6">
+            <p class="font-en text-lg font-bold text-cyan">{p.name}</p>
+            <p class="mt-1 text-xs font-bold text-gold">{p.tag}</p>
+            <p class="mt-4 text-sm leading-relaxed text-white/70">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 代表メッセージ -->
+  <section class="bg-cream">
+    <div class="mx-auto grid max-w-6xl gap-10 px-4 py-16 md:grid-cols-[1fr_2fr] md:px-6 md:py-24">
+      <div>
+        <p class="font-en text-xs font-bold uppercase tracking-[0.25em] text-teal">Message</p>
+        <h2 class="mt-3 font-display text-2xl font-black leading-snug text-ink md:text-3xl">{site.message_title}</h2>
+        <div class="mt-5 h-1 w-16 bg-gold"></div>
+      </div>
+      <div>
+        <p class="whitespace-pre-line leading-loose text-ink/80">{site.message_body}</p>
+        <p class="mt-6 text-sm font-bold text-ink">{site.message_name}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ニュース -->
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
+      <div class="flex items-end justify-between">
+        <SectionHead en="News" ja="ニュース" />
+        <a href="/news/" class="mb-10 text-sm font-bold text-teal hover:text-cyan">一覧を見る →</a>
+      </div>
+      <ul class="divide-y divide-line border-y border-line">
+        {news.map((n) => (
+          <li>
+            <a href={`/news/${n.slug}/`} class="group flex flex-col gap-2 py-5 sm:flex-row sm:items-center sm:gap-6">
+              <time class="font-en text-sm text-ink/50">{fmt(n.data.date)}</time>
+              <span class="w-fit border border-teal px-2 py-0.5 text-xs font-bold text-teal">{n.data.category}</span>
+              <span class="font-medium text-ink transition group-hover:text-teal">{n.data.title}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <ContactBand />
+</Base>

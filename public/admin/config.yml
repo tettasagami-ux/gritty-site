@@ -1,0 +1,46 @@
+backend:
+  name: git-gateway
+  branch: main
+
+locale: ja
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+site_url: "https://gritty.co.jp"
+
+collections:
+  - name: "news"
+    label: "ニュース"
+    label_singular: "記事"
+    folder: "src/content/news"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    sortable_fields: ["date", "title"]
+    fields:
+      - { label: "タイトル", name: "title", widget: "string" }
+      - { label: "公開日", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - label: "カテゴリ"
+        name: "category"
+        widget: "select"
+        options: ["お知らせ", "プレスリリース", "実績", "メディア"]
+        default: "お知らせ"
+      - { label: "概要（検索・SNS用の短い説明）", name: "description", widget: "string", required: false }
+      - { label: "本文", name: "body", widget: "markdown" }
+
+  - name: "settings"
+    label: "サイト設定"
+    files:
+      - name: "site"
+        label: "基本情報・文言"
+        file: "src/data/site.json"
+        fields:
+          - { label: "会社名", name: "company_name", widget: "string" }
+          - { label: "設立", name: "founded", widget: "string" }
+          - { label: "所在地", name: "address", widget: "string" }
+          - { label: "電話番号", name: "tel", widget: "string" }
+          - { label: "メールアドレス", name: "email", widget: "string" }
+          - { label: "公式LINEのURL", name: "line_url", widget: "string" }
+          - { label: "トップのキャッチコピー（改行可）", name: "hero_catch", widget: "text" }
+          - { label: "トップのサブコピー", name: "hero_sub", widget: "text" }
+          - { label: "代表メッセージ・見出し", name: "message_title", widget: "string" }
+          - { label: "代表メッセージ・本文（改行可）", name: "message_body", widget: "text" }
+          - { label: "代表メッセージ・署名", name: "message_name", widget: "string" }

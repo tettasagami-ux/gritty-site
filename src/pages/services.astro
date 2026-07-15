@@ -1,0 +1,148 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import ContactBand from '../components/ContactBand.astro';
+---
+<Base title="事業内容" description="GRITTYの3つの事業。スポーツサイエンス（野球データ分析・フィジカル測定・コンディション管理）、デジタルソリューション（アプリ開発・導入支援）、クリエイティブ＆イベント（動画制作・YouTube運営・イベント企画運営）。">
+  <section class="bg-ink">
+    <div class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
+      <p class="font-en text-xs font-bold uppercase tracking-[0.3em] text-cyan">Service</p>
+      <h1 class="mt-4 font-display text-4xl font-black text-white md:text-5xl">事業内容</h1>
+      <p class="mt-5 max-w-2xl leading-relaxed text-white/70">
+        測定・分析からアプリ開発、映像制作まで。3つの事業をひとつのチームで担うことで、「計測して終わり」ではない一気通貫の伴走を実現します。
+      </p>
+    </div>
+  </section>
+
+  <!-- 01 Sports Science -->
+  <section id="sports-science" class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
+      <SectionHead en="Sports Science" ja="スポーツサイエンス" />
+      <div class="grid gap-6 md:grid-cols-3">
+        <div class="border border-line shadow-sm">
+          <div class="h-1.5 bg-cyan"></div>
+          <div class="p-6">
+            <h3 class="font-display text-lg font-black">野球データ分析</h3>
+            <p class="mt-3 text-sm leading-relaxed text-ink/70">
+              Rapsodoで回転数・回転効率・球速・変化量・コマンドを瞬時に取得し、選手ごとに時系列で整理。1000fpsのハイスピードカメラで、目視では捉えきれないリリース・インパクトの瞬間を映像化し、「なぜその数値が出たか」をフォームから読み解きます。
+            </p>
+          </div>
+        </div>
+        <div class="border border-line shadow-sm">
+          <div class="h-1.5 bg-teal"></div>
+          <div class="p-6">
+            <h3 class="font-display text-lg font-black">フィジカル測定</h3>
+            <p class="mt-3 text-sm leading-relaxed text-ink/70">
+              技術と身体の課題を切り離さず、20項目以上の計測で繋ぎます。基礎運動能力・柔軟性・可動域を数値化し、怪我予防の観点も含めて個別最適化メニューへ落とし込みます。
+            </p>
+          </div>
+        </div>
+        <div class="border border-line shadow-sm">
+          <div class="h-1.5 bg-gold"></div>
+          <div class="p-6">
+            <h3 class="font-display text-lg font-black">コンディション管理</h3>
+            <p class="mt-3 text-sm leading-relaxed text-ink/70">
+              GRITTY コンディショニングアプリで、日々の練習内容・主観的な体調・動画・所見をチームで共有。年間の介入を365日分のデータで裏づけ、測定日と測定日の間も選手に寄り添い続けます。
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="mt-8 border-l-4 border-teal bg-cream p-5">
+        <p class="text-sm leading-relaxed text-ink/80">
+          <span class="font-bold text-teal">小学生から社会人まで。</span>
+          ジュニア期の基礎体力づくりから、トップ選手のシーズン調整まで、チームの成長段階に合わせてメソッドを調整し提供します。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 Digital Solutions -->
+  <section id="digital" class="bg-cream">
+    <div class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
+      <SectionHead en="Digital Solutions" ja="デジタルソリューション" />
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="border border-line bg-white shadow-sm">
+          <div class="h-1.5 bg-teal"></div>
+          <div class="p-6">
+            <h3 class="font-display text-lg font-black">アプリ開発</h3>
+            <p class="mt-3 text-sm leading-relaxed text-ink/70">
+              GRITTY DataBase（投球分析）、Training Management（練習・進捗管理）、Conditioning（体調記録）など、野球の現場で実際に使うアプリを自社で開発・運用。現場で得た知見を、そのままプロダクトに還元しています。
+            </p>
+          </div>
+        </div>
+        <div class="border border-line bg-white shadow-sm">
+          <div class="h-1.5 bg-cyan"></div>
+          <div class="p-6">
+            <h3 class="font-display text-lg font-black">デジタル導入支援</h3>
+            <p class="mt-3 text-sm leading-relaxed text-ink/70">
+              チーム・スクール・施設のデジタル化を伴走支援。データの一元管理、動画共有、遠隔でのフィードバックなど、現場の運用に合わせた仕組みづくりを、導入から定着までサポートします。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 Creative & Events -->
+  <section id="creative" class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
+      <SectionHead en="Creative & Events" ja="クリエイティブ＆イベント" />
+      <div class="grid gap-6 md:grid-cols-3">
+        <div class="border border-line shadow-sm">
+          <div class="h-1.5 bg-gold"></div>
+          <div class="p-6">
+            <h3 class="font-display text-lg font-black">動画制作</h3>
+            <p class="mt-3 text-sm leading-relaxed text-ink/70">
+              測定・練習・試合など、スポーツ現場の熱量をそのまま伝える映像を企画から編集まで一貫して制作します。
+            </p>
+          </div>
+        </div>
+        <div class="border border-line shadow-sm">
+          <div class="h-1.5 bg-teal"></div>
+          <div class="p-6">
+            <h3 class="font-display text-lg font-black">YouTube運営</h3>
+            <p class="mt-3 text-sm leading-relaxed text-ink/70">
+              チーム・スクール・企業のYouTubeチャンネルを、企画・撮影・編集・分析まで含めて運営代行します。
+            </p>
+          </div>
+        </div>
+        <div class="border border-line shadow-sm">
+          <div class="h-1.5 bg-cyan"></div>
+          <div class="p-6">
+            <h3 class="font-display text-lg font-black">イベント企画運営</h3>
+            <p class="mt-3 text-sm leading-relaxed text-ink/70">
+              測定会・野球教室・体験イベントなど、データとスポーツを掛け合わせたイベントを企画・運営します。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 導入の流れ -->
+  <section class="bg-panel">
+    <div class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
+      <SectionHead en="Flow" ja="導入から、現場介入後まで。" light />
+      <ol class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {[
+          { en: 'Contact', ja: 'お問い合わせ', desc: 'メール / LINE / 電話。1営業日以内に返信します。' },
+          { en: 'Demo & Hearing', ja: '無料デモ測定・ヒアリング', desc: '実際の技術をご体験いただき、課題・シーズン・既存プログラムを丁寧に伺います。' },
+          { en: 'Proposal & Sign', ja: 'プラン提案・契約', desc: '課題に応じた構成・頻度・期間をご提案し、双方合意のうえ開始します。' },
+          { en: 'Support', ja: '現場介入・継続サポート', desc: 'レポート＋所見をアプリで配信。月次・四半期の定期測定で仮説を検証し伴走します。' },
+        ].map((s, i) => (
+          <li class="border border-white/10 bg-ink p-5">
+            <p class="font-en text-xs font-bold uppercase tracking-widest text-gold">{String(i + 1).padStart(2, '0')} · {s.en}</p>
+            <h3 class="mt-2 font-display font-black text-white">{s.ja}</h3>
+            <p class="mt-2 text-xs leading-relaxed text-white/60">{s.desc}</p>
+          </li>
+        ))}
+      </ol>
+      <p class="mt-8 border-l-4 border-gold bg-ink p-5 text-sm text-white/80">
+        <span class="font-bold text-gold">現場だけでは、終わらない。</span>
+        GRITTYは測定日から次の測定日まで、選手の練習と指導者の判断に寄り添い続けます。
+      </p>
+    </div>
+  </section>
+
+  <ContactBand />
+</Base>

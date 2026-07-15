@@ -1,0 +1,77 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import ContactBand from '../components/ContactBand.astro';
+import site from '../data/site.json';
+
+const rows = [
+  ['会社名', site.company_name],
+  ['設立', site.founded],
+  ['所在地', site.address],
+  ['電話番号', site.tel],
+  ['メール', site.email],
+  ['事業内容', 'Sports Science（野球データ分析・フィジカル測定・コンディション管理）／Digital Solutions（アプリ開発・デジタル導入支援）／Creative & Events（動画制作・YouTube運営・イベント企画運営）'],
+];
+---
+<Base title="会社概要" description="GRITTY株式会社の会社概要。所在地・連絡先・事業内容・代表メッセージ。">
+  <section class="bg-ink">
+    <div class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
+      <p class="font-en text-xs font-bold uppercase tracking-[0.3em] text-cyan">Company</p>
+      <h1 class="mt-4 font-display text-4xl font-black text-white md:text-5xl">会社概要</h1>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
+      <SectionHead en="Philosophy" ja="データは、現場で活きて初めて意味を持つ。" />
+      <p class="max-w-3xl leading-loose text-ink/80">
+        GRITTYはデータを売る会社ではありません。選手と指導者が理解し、納得し、実践できる状態まで伴走する、スポーツ科学のパートナーです。成果を約束せず、数字で過度に売らず。成長するのは選手自身。GRITTYは伴走者です。
+      </p>
+      <div class="mt-10 grid gap-4 md:grid-cols-3">
+        {[
+          { t: '現場と科学の二輪', d: 'コーチの経験則と測定データを擦り合わせ、選手ごとの文脈で判断する。', bar: 'bg-teal' },
+          { t: '選手起点の改善設計', d: '「点」ではなく「線」。単発の測定ではなく、課題別メニューを継続的に運用する。', bar: 'bg-gold' },
+          { t: '誠実な伴走', d: '測定して終わりにしない。選手・指導者と同じ目線で、成長のプロセスに寄り添う。', bar: 'bg-cyan' },
+        ].map((p) => (
+          <div class="border border-line shadow-sm">
+            <div class={`h-1.5 ${p.bar}`}></div>
+            <div class="p-6">
+              <h3 class="font-display font-black">{p.t}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-ink/70">{p.d}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-cream">
+    <div class="mx-auto grid max-w-6xl gap-10 px-4 py-16 md:grid-cols-[1fr_2fr] md:px-6 md:py-24">
+      <div>
+        <p class="font-en text-xs font-bold uppercase tracking-[0.25em] text-teal">Message</p>
+        <h2 class="mt-3 font-display text-2xl font-black leading-snug md:text-3xl">{site.message_title}</h2>
+        <div class="mt-5 h-1 w-16 bg-gold"></div>
+      </div>
+      <div>
+        <p class="whitespace-pre-line leading-loose text-ink/80">{site.message_body}</p>
+        <p class="mt-6 text-sm font-bold">{site.message_name}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
+      <SectionHead en="Profile" ja="会社情報" />
+      <dl class="divide-y divide-line border-y border-line">
+        {rows.map(([k, v]) => (
+          <div class="grid gap-1 py-5 sm:grid-cols-[160px_1fr] sm:gap-6">
+            <dt class="text-sm font-bold text-teal">{k}</dt>
+            <dd class="text-sm leading-relaxed text-ink/80">{v}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <ContactBand />
+</Base>

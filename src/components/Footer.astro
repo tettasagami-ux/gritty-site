@@ -1,0 +1,36 @@
+---
+import site from '../data/site.json';
+const year = new Date().getFullYear();
+---
+<footer class="bg-ink text-white">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:grid-cols-3 md:px-6">
+    <div>
+      <img src="/images/logo-cyan.png" alt="GRITTY" class="h-6 w-auto" />
+      <p class="mt-4 text-sm leading-relaxed text-white/70">
+        {site.company_name}<br />
+        {site.address}<br />
+        <a href={`mailto:${site.email}`} class="text-cyan hover:underline">{site.email}</a>
+      </p>
+    </div>
+    <div>
+      <p class="font-en text-xs uppercase tracking-[0.2em] text-cyan">Sitemap</p>
+      <nav class="mt-4 flex flex-col gap-2 text-sm text-white/80" aria-label="フッターナビゲーション">
+        <a href="/" class="hover:text-cyan">ホーム</a>
+        <a href="/services/" class="hover:text-cyan">事業内容</a>
+        <a href="/company/" class="hover:text-cyan">会社概要</a>
+        <a href="/news/" class="hover:text-cyan">ニュース</a>
+        <a href="/contact/" class="hover:text-cyan">お問い合わせ</a>
+      </nav>
+    </div>
+    <div>
+      <p class="font-en text-xs uppercase tracking-[0.2em] text-cyan">Contact</p>
+      <p class="mt-4 text-sm leading-relaxed text-white/70">
+        測定・分析のご相談は公式LINEからどうぞ。通常1営業日以内に返信します。
+      </p>
+      <a href={site.line_url} target="_blank" rel="noopener" class="mt-4 inline-block rounded bg-[#06C755] px-5 py-2.5 text-sm font-bold text-white transition hover:opacity-90">LINEで友だち追加</a>
+    </div>
+  </div>
+  <div class="border-t border-white/10 py-5 text-center text-xs text-white/50">
+    © {year} GRITTY Inc.
+  </div>
+</footer>
