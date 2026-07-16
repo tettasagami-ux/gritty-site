@@ -2,35 +2,34 @@
 import site from '../data/site.json';
 const year = new Date().getFullYear();
 ---
-<footer class="bg-ink text-white">
-  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:grid-cols-3 md:px-6">
-    <div>
-      <img src="/images/logo-cyan.png" alt="GRITTY" class="h-6 w-auto" />
-      <p class="mt-4 text-sm leading-relaxed text-white/70">
-        {site.company_name}<br />
-        {site.address}<br />
-        <a href={`mailto:${site.email}`} class="text-cyan hover:underline">{site.email}</a>
-      </p>
-    </div>
-    <div>
-      <p class="font-en text-xs uppercase tracking-[0.2em] text-cyan">Sitemap</p>
-      <nav class="mt-4 flex flex-col gap-2 text-sm text-white/80" aria-label="フッターナビゲーション">
-        <a href="/" class="hover:text-cyan">ホーム</a>
-        <a href="/services/" class="hover:text-cyan">事業内容</a>
-        <a href="/company/" class="hover:text-cyan">会社概要</a>
-        <a href="/news/" class="hover:text-cyan">ニュース</a>
-        <a href="/contact/" class="hover:text-cyan">お問い合わせ</a>
+<footer class="bg-navy text-white">
+  <div class="mx-auto max-w-6xl px-4 py-14 md:px-6">
+    <div class="flex flex-col justify-between gap-10 md:flex-row md:items-start">
+      <div>
+        <a href="/" class="flex items-center gap-2.5">
+          <img src="/images/logo-mark.png" alt="" class="h-9 w-auto" />
+          <img src="/images/logo-white.png" alt="GRITTY" class="h-[18px] w-auto" />
+        </a>
+        <p class="mt-5 text-sm leading-relaxed text-white/60">
+          {site.company_name}<br />
+          {site.address}
+        </p>
+      </div>
+      <nav class="flex gap-10 text-sm" aria-label="フッターナビゲーション">
+        <div class="flex flex-col gap-3">
+          <a href="/" class="text-white/80 hover:text-cyan">ホーム</a>
+          <a href="/services/" class="text-white/80 hover:text-cyan">事業内容</a>
+          <a href="/company/" class="text-white/80 hover:text-cyan">会社概要</a>
+        </div>
+        <div class="flex flex-col gap-3">
+          <a href="/news/" class="text-white/80 hover:text-cyan">ニュース</a>
+          <a href="/contact/" class="text-white/80 hover:text-cyan">お問い合わせ</a>
+          <a href={site.line_url} target="_blank" rel="noopener" class="text-white/80 hover:text-cyan">公式LINE</a>
+        </div>
       </nav>
     </div>
-    <div>
-      <p class="font-en text-xs uppercase tracking-[0.2em] text-cyan">Contact</p>
-      <p class="mt-4 text-sm leading-relaxed text-white/70">
-        測定・分析のご相談は公式LINEからどうぞ。通常1営業日以内に返信します。
-      </p>
-      <a href={site.line_url} target="_blank" rel="noopener" class="mt-4 inline-block rounded bg-[#06C755] px-5 py-2.5 text-sm font-bold text-white transition hover:opacity-90">LINEで友だち追加</a>
+    <div class="mt-12 border-t border-white/10 pt-6 text-xs text-white/40">
+      © {year} GRITTY Inc.
     </div>
-  </div>
-  <div class="border-t border-white/10 py-5 text-center text-xs text-white/50">
-    © {year} GRITTY Inc.
   </div>
 </footer>

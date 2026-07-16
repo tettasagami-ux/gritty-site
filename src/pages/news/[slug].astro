@@ -17,32 +17,32 @@ const d = entry.data.date;
 const fmt = `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
 ---
 <Base title={entry.data.title} description={entry.data.description}>
-  <section class="bg-ink">
+  <section class="border-b border-line bg-paper">
     <div class="mx-auto max-w-4xl px-4 py-16 md:px-6 md:py-20">
       <div class="flex items-center gap-4">
-        <time class="font-en text-sm text-white/60">{fmt}</time>
-        <span class="border border-cyan px-2 py-0.5 text-xs font-bold text-cyan">{entry.data.category}</span>
+        <time class="font-en text-sm text-ink/40">{fmt}</time>
+        <span class="rounded-full border border-teal/40 px-2.5 py-0.5 text-xs font-medium text-teal">{entry.data.category}</span>
       </div>
-      <h1 class="mt-4 font-display text-3xl font-black leading-snug text-white md:text-4xl">{entry.data.title}</h1>
+      <h1 class="mt-5 font-display text-3xl font-bold leading-snug text-ink md:text-4xl">{entry.data.title}</h1>
     </div>
   </section>
   <article class="bg-white">
     <div class="prose-gritty mx-auto max-w-4xl px-4 py-16 md:px-6 md:py-20">
       <Content />
     </div>
-    <div class="mx-auto max-w-4xl px-4 pb-16 md:px-6">
-      <a href="/news/" class="text-sm font-bold text-teal hover:text-cyan">← ニュース一覧へ戻る</a>
+    <div class="mx-auto max-w-4xl px-4 pb-20 md:px-6">
+      <a href="/news/" class="text-sm font-bold text-teal hover:underline">← ニュース一覧へ戻る</a>
     </div>
   </article>
   <ContactBand />
 </Base>
 
 <style is:global>
-  .prose-gritty { line-height: 2; color: rgba(14, 31, 43, 0.85); }
+  .prose-gritty { line-height: 2; color: rgba(26, 43, 51, 0.8); }
   .prose-gritty p { margin-bottom: 1.5em; }
-  .prose-gritty h2 { font-family: 'Zen Kaku Gothic New', sans-serif; font-weight: 900; font-size: 1.4rem; margin: 2em 0 1em; border-left: 4px solid #0FA894; padding-left: 0.75rem; color: #0E1F2B; }
-  .prose-gritty h3 { font-weight: 700; font-size: 1.15rem; margin: 1.6em 0 0.8em; color: #0E1F2B; }
-  .prose-gritty a { color: #0FA894; font-weight: 700; text-decoration: underline; }
+  .prose-gritty h2 { font-family: 'Zen Kaku Gothic New', sans-serif; font-weight: 700; font-size: 1.4rem; margin: 2em 0 1em; border-left: 3px solid #0E9AAB; padding-left: 0.75rem; color: #1A2B33; }
+  .prose-gritty h3 { font-weight: 700; font-size: 1.15rem; margin: 1.6em 0 0.8em; color: #1A2B33; }
+  .prose-gritty a { color: #0E9AAB; font-weight: 700; text-decoration: underline; }
   .prose-gritty ul { list-style: disc; padding-left: 1.5em; margin-bottom: 1.5em; }
-  .prose-gritty img { border: 1px solid #E3DCCE; }
+  .prose-gritty img { border-radius: 12px; border: 1px solid #E5E8EA; }
 </style>

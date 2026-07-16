@@ -1,41 +1,39 @@
 ---
 const nav = [
-  { href: '/', ja: 'ホーム', en: 'Home' },
-  { href: '/services/', ja: '事業内容', en: 'Service' },
-  { href: '/company/', ja: '会社概要', en: 'Company' },
-  { href: '/news/', ja: 'ニュース', en: 'News' },
+  { href: '/', ja: 'ホーム' },
+  { href: '/services/', ja: '事業内容' },
+  { href: '/company/', ja: '会社概要' },
+  { href: '/news/', ja: 'ニュース' },
 ];
 const path = Astro.url.pathname;
 ---
-<header class="sticky top-0 z-40 border-b border-white/10 bg-ink/95 backdrop-blur">
-  <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-6">
-    <a href="/" class="flex items-center" aria-label="GRITTY ホーム">
-      <img src="/images/logo-cyan.png" alt="GRITTY" class="h-5 w-auto md:h-6" />
+<header class="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
+  <div class="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-4 md:px-6">
+    <a href="/" class="flex items-center gap-2.5" aria-label="GRITTY ホーム">
+      <img src="/images/logo-mark.png" alt="" class="h-9 w-auto" />
+      <img src="/images/logo-navy.png" alt="GRITTY" class="h-[18px] w-auto" />
     </a>
-    <nav class="hidden items-center gap-7 md:flex" aria-label="メインナビゲーション">
+    <nav class="hidden items-center gap-8 md:flex" aria-label="メインナビゲーション">
       {nav.map((n) => (
         <a href={n.href}
-           class={`group text-sm font-medium text-white/80 transition hover:text-cyan ${path === n.href ? 'text-cyan' : ''}`}>
+           class={`text-[15px] font-medium transition hover:text-teal ${path === n.href ? 'text-teal' : 'text-ink'}`}>
           {n.ja}
-          <span class="ml-1.5 font-en text-[11px] uppercase tracking-wider text-white/40 group-hover:text-cyan/60">{n.en}</span>
         </a>
       ))}
-      <a href="/contact/" class="rounded bg-cyan px-4 py-2 text-sm font-bold text-ink transition hover:bg-white">お問い合わせ</a>
+      <a href="/contact/" class="rounded-full bg-navy px-6 py-2.5 text-sm font-bold text-white transition hover:bg-teal">お問い合わせ</a>
     </nav>
     <button id="menu-btn" class="flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobile-menu">
-      <span class="block h-0.5 w-6 bg-white transition"></span>
-      <span class="block h-0.5 w-6 bg-white transition"></span>
-      <span class="block h-0.5 w-6 bg-white transition"></span>
+      <span class="block h-0.5 w-6 bg-ink"></span>
+      <span class="block h-0.5 w-6 bg-ink"></span>
+      <span class="block h-0.5 w-6 bg-ink"></span>
     </button>
   </div>
-  <div id="mobile-menu" class="hidden border-t border-white/10 bg-ink md:hidden">
+  <div id="mobile-menu" class="hidden border-t border-line bg-white md:hidden">
     <nav class="flex flex-col px-4 py-3" aria-label="モバイルナビゲーション">
       {nav.map((n) => (
-        <a href={n.href} class="border-b border-white/5 py-3 text-white/90">
-          {n.ja} <span class="ml-2 font-en text-xs uppercase tracking-wider text-white/40">{n.en}</span>
-        </a>
+        <a href={n.href} class="border-b border-line py-3.5 text-ink">{n.ja}</a>
       ))}
-      <a href="/contact/" class="mt-3 rounded bg-cyan py-3 text-center font-bold text-ink">お問い合わせ</a>
+      <a href="/contact/" class="mt-4 rounded-full bg-navy py-3 text-center font-bold text-white">お問い合わせ</a>
     </nav>
   </div>
 </header>

@@ -4,13 +4,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: '#0E1F2B',
-        panel: '#14293A',
-        teal: '#0FA894',
+        ink: '#1A2B33',
+        navy: '#0E1F2B',
+        teal: '#0E9AAB',
         cyan: '#35D6DB',
-        gold: '#C8A45D',
-        cream: '#F4F0E8',
-        line: '#E3DCCE',
+        paper: '#F6F7F8',
+        line: '#E5E8EA',
       },
       fontFamily: {
         display: ['"Zen Kaku Gothic New"', 'sans-serif'],

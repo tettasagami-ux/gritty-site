@@ -2,11 +2,11 @@
 interface Props {
   en: string;
   ja: string;
-  light?: boolean;
+  center?: boolean;
 }
-const { en, ja, light = false } = Astro.props;
+const { en, ja, center = false } = Astro.props;
 ---
-<div class="mb-10">
-  <p class={`font-en text-xs font-bold uppercase tracking-[0.25em] ${light ? 'text-cyan' : 'text-teal'}`}>{en}</p>
-  <h2 class={`mt-3 font-display text-3xl font-black leading-tight md:text-4xl ${light ? 'text-white' : 'text-ink'}`}>{ja}</h2>
+<div class={`mb-12 ${center ? 'text-center' : ''}`}>
+  <p class="font-en text-xs font-bold uppercase tracking-[0.2em] text-teal">{en}</p>
+  <h2 class="mt-3 font-display text-[28px] font-bold leading-snug text-ink md:text-4xl">{ja}</h2>
 </div>
