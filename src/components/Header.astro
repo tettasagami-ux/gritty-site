@@ -7,7 +7,7 @@ const nav = [
 ];
 const path = Astro.url.pathname;
 ---
-<header class="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
+<header class="sticky top-0 z-40 border-b border-line bg-white/85 backdrop-blur">
   <div class="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-4 md:px-6">
     <a href="/" class="flex items-center gap-2.5" aria-label="GRITTY ホーム">
       <img src="/images/logo-mark.png" alt="" class="h-9 w-auto" />
@@ -20,7 +20,7 @@ const path = Astro.url.pathname;
           {n.ja}
         </a>
       ))}
-      <a href="/contact/" class="rounded-full bg-navy px-6 py-2.5 text-sm font-bold text-white transition hover:bg-teal">お問い合わせ</a>
+      <a href="/contact/" class="rounded-full bg-ink px-6 py-2.5 text-sm font-bold text-white transition hover:bg-teal">お問い合わせ</a>
     </nav>
     <button id="menu-btn" class="flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobile-menu">
       <span class="block h-0.5 w-6 bg-ink"></span>
@@ -33,7 +33,7 @@ const path = Astro.url.pathname;
       {nav.map((n) => (
         <a href={n.href} class="border-b border-line py-3.5 text-ink">{n.ja}</a>
       ))}
-      <a href="/contact/" class="mt-4 rounded-full bg-navy py-3 text-center font-bold text-white">お問い合わせ</a>
+      <a href="/contact/" class="mt-4 rounded-full bg-ink py-3 text-center font-bold text-white">お問い合わせ</a>
     </nav>
   </div>
 </header>

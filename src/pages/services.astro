@@ -1,12 +1,38 @@
 ---
 import Base from '../layouts/Base.astro';
-import SectionHead from '../components/SectionHead.astro';
 import ContactBand from '../components/ContactBand.astro';
+
+const services = [
+  {
+    href: '/services/sports-science/',
+    en: 'Sports Science Support',
+    ja: 'スポーツサイエンスサポート',
+    img: '/images/service-science.webp',
+    alt: '屋内練習場でハイスピードカメラを設置し打撃を測定する様子',
+    desc: 'Rapsodo・1000fpsハイスピードカメラ・フィジカル測定・専用アプリで、選手の成長に伴走するスポーツ科学サポート。',
+  },
+  {
+    href: '/services/digital/',
+    en: 'Digital Solutions',
+    ja: 'デジタルソリューション',
+    img: '/images/service-digital.webp',
+    alt: 'GRITTY DataBaseの投球分析ダッシュボード画面',
+    desc: '現場で本当に使われるアプリを自社開発。計測から記録・育成まで、チームのデジタル化を一気通貫で支えます。',
+  },
+  {
+    href: '/services/creative/',
+    en: 'Creative & Events',
+    ja: 'クリエイティブ＆イベント',
+    img: '/images/service-creative.webp',
+    alt: '1000fpsハイスピードカメラで捉えたボールリリースの瞬間',
+    desc: '現場の熱量を伝える映像制作と、チーム・スクールの発信を支えるYouTube運営、イベントの企画運営まで。',
+  },
+];
 ---
-<Base title="事業内容" description="GRITTYの3つの事業。スポーツサイエンス（野球データ分析・フィジカル測定・コンディション管理）、デジタルソリューション（アプリ開発・導入支援）、クリエイティブ＆イベント（動画制作・YouTube運営・イベント企画運営）。">
-  <section class="border-b border-line bg-paper">
+<Base title="事業内容" description="GRITTYの3つの事業。スポーツサイエンスサポート、デジタルソリューション、クリエイティブ＆イベント。">
+  <section class="border-b border-line">
     <div class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
-      <p class="font-en text-xs font-bold uppercase tracking-[0.2em] text-teal">Service</p>
+      <p class="font-en text-xl italic tracking-wide text-teal">Service</p>
       <h1 class="mt-4 font-display text-4xl font-bold text-ink md:text-5xl">事業内容</h1>
       <p class="mt-6 max-w-2xl leading-loose text-ink/70">
         測定・分析からアプリ開発、映像制作まで。3つの事業をひとつのチームで担うことで、「計測して終わり」ではない一気通貫の伴走を実現します。
@@ -14,103 +40,23 @@ import ContactBand from '../components/ContactBand.astro';
     </div>
   </section>
 
-  <!-- 01 Sports Science -->
-  <section id="sports-science" class="bg-white">
+  <section>
     <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
-      <div class="grid items-center gap-10 md:grid-cols-2">
-        <div>
-          <p class="font-en text-xs font-bold uppercase tracking-[0.2em] text-teal">01 — Sports Science</p>
-          <h2 class="mt-3 font-display text-3xl font-bold text-ink">スポーツサイエンス</h2>
-          <p class="mt-6 leading-loose text-ink/70">
-            Rapsodoで回転数・回転効率・球速・変化量を瞬時に取得し、1000fpsのハイスピードカメラで目視では捉えきれないリリースの瞬間を映像化。「なぜその数値が出たか」をフォームから読み解きます。技術と身体を切り離さず、20項目以上のフィジカル計測で繋ぎ、小学生から社会人まで成長段階に合わせて伴走します。
-          </p>
-          <ul class="mt-7 space-y-2.5">
-            {['野球データ分析（Rapsodo・ハイスピードカメラ）', 'フィジカル測定（20項目以上）', 'コンディション管理（専用アプリ）'].map((t) => (
-              <li class="flex items-start gap-2.5 text-sm font-medium text-ink">
-                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-teal"></span>{t}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div class="space-y-4">
-          <img src="/images/service-science.webp" alt="屋内練習場でタブレットを使い投球を測定する様子" class="w-full rounded-2xl object-cover" loading="lazy" />
-          <img src="/images/rapsodo.webp" alt="グラウンドに設置されたRapsodo測定機器" class="w-full rounded-2xl object-cover" loading="lazy" />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 02 Digital -->
-  <section id="digital" class="bg-paper">
-    <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
-      <div class="grid items-center gap-10 md:grid-cols-2">
-        <div class="order-2 md:order-1">
-          <img src="/images/service-digital.webp" alt="GRITTY DataBaseの投球分析ダッシュボード画面" class="w-full rounded-2xl border border-line bg-white object-cover" loading="lazy" />
-        </div>
-        <div class="order-1 md:order-2">
-          <p class="font-en text-xs font-bold uppercase tracking-[0.2em] text-teal">02 — Digital Solutions</p>
-          <h2 class="mt-3 font-display text-3xl font-bold text-ink">デジタルソリューション</h2>
-          <p class="mt-6 leading-loose text-ink/70">
-            GRITTY DataBase（投球分析）、Training Management（練習・進捗管理）、Conditioning（体調記録）など、野球の現場で実際に使うアプリを自社で開発・運用。現場で得た知見をそのままプロダクトに還元しています。チーム・スクール・施設のデジタル化も、導入から定着まで伴走支援します。
-          </p>
-          <ul class="mt-7 space-y-2.5">
-            {['自社アプリの開発・運用', 'デジタル導入支援（データ一元管理・動画共有・遠隔フィードバック）'].map((t) => (
-              <li class="flex items-start gap-2.5 text-sm font-medium text-ink">
-                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-teal"></span>{t}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 03 Creative -->
-  <section id="creative" class="bg-white">
-    <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
-      <div class="grid items-center gap-10 md:grid-cols-2">
-        <div>
-          <p class="font-en text-xs font-bold uppercase tracking-[0.2em] text-teal">03 — Creative & Events</p>
-          <h2 class="mt-3 font-display text-3xl font-bold text-ink">クリエイティブ＆イベント</h2>
-          <p class="mt-6 leading-loose text-ink/70">
-            測定・練習・試合など、スポーツ現場の熱量をそのまま伝える映像を企画から編集まで一貫して制作。チーム・スクール・企業のYouTubeチャンネル運営代行や、データとスポーツを掛け合わせた測定会・野球教室などのイベント企画運営も行っています。
-          </p>
-          <ul class="mt-7 space-y-2.5">
-            {['動画制作（企画・撮影・編集）', 'YouTubeチャンネル運営代行', 'イベント企画運営（測定会・野球教室など）'].map((t) => (
-              <li class="flex items-start gap-2.5 text-sm font-medium text-ink">
-                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-teal"></span>{t}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <img src="/images/service-creative.webp" alt="ハイスピードカメラを設置して打撃を撮影する様子" class="w-full rounded-2xl object-cover" loading="lazy" />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 導入の流れ -->
-  <section class="bg-paper">
-    <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
-      <SectionHead en="Flow" ja="導入の流れ" center />
-      <ol class="mx-auto grid max-w-5xl gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-        {[
-          { no: '01', ja: 'お問い合わせ', desc: 'メール / LINE / 電話。1営業日以内に返信します。' },
-          { no: '02', ja: '無料デモ測定・ヒアリング', desc: '実際の技術をご体験いただき、課題やシーズンを丁寧に伺います。' },
-          { no: '03', ja: 'プラン提案・契約', desc: '課題に応じた構成・頻度・期間をご提案し、双方合意のうえ開始します。' },
-          { no: '04', ja: '現場介入・継続サポート', desc: 'レポート＋所見をアプリで配信。定期測定で仮説を検証し伴走します。' },
-        ].map((s) => (
-          <li class="border-t-2 border-teal pt-5">
-            <p class="font-en text-sm font-bold text-teal">{s.no}</p>
-            <h3 class="mt-1.5 font-display text-lg font-bold text-ink">{s.ja}</h3>
-            <p class="mt-2 text-sm leading-relaxed text-ink/60">{s.desc}</p>
-          </li>
+      <div class="grid gap-8 md:grid-cols-3">
+        {services.map((s) => (
+          <a href={s.href} class="group overflow-hidden rounded-2xl border border-line bg-white transition hover:-translate-y-1 hover:shadow-lg">
+            <div class="aspect-[4/3] overflow-hidden">
+              <img src={s.img} alt={s.alt} class="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
+            </div>
+            <div class="p-6">
+              <p class="font-en text-lg italic tracking-wide text-teal">{s.en}</p>
+              <h2 class="mt-2 font-display text-lg font-bold text-ink">{s.ja}</h2>
+              <p class="mt-3 text-sm leading-relaxed text-ink/60">{s.desc}</p>
+              <p class="mt-4 text-sm font-bold text-teal">詳しく見る →</p>
+            </div>
+          </a>
         ))}
-      </ol>
-      <p class="mx-auto mt-14 max-w-2xl text-center leading-loose text-ink/70">
-        現場だけでは、終わらない。GRITTYは測定日から次の測定日まで、<br class="hidden md:block" />選手の練習と指導者の判断に寄り添い続けます。
-      </p>
+      </div>
     </div>
   </section>
 

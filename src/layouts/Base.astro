@@ -26,7 +26,7 @@ const pageDesc = description ?? 'GRITTY株式会社は、野球を中心とし�
   <link rel="icon" type="image/png" href="/images/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700;800&family=Noto+Sans+JP:wght@400;500;700&family=EB+Garamond:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet" />
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
   <script is:inline>
     // CMS招待メールのリンクから /admin/ へリダイレクト
@@ -41,7 +41,7 @@ const pageDesc = description ?? 'GRITTY株式会社は、野球を中心とし�
     });
   </script>
 </head>
-<body class="bg-white font-body text-ink antialiased">
+<body class="font-body text-ink antialiased">
   <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-cyan focus:px-4 focus:py-2 focus:text-ink">本文へスキップ</a>
   <Header />
   <main id="main">
@@ -53,9 +53,17 @@ const pageDesc = description ?? 'GRITTY株式会社は、野球を中心とし�
 
 <style is:global>
   html { scroll-behavior: smooth; }
+  body {
+    background-color: #ECEDEA;
+    background-image: url('/images/texture.webp');
+    background-size: 900px 900px;
+  }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after { animation: none !important; transition: none !important; }
   }
-  ::selection { background: #35D6DB; color: #0E1F2B; }
+  ::selection { background: #2FC1D3; color: #17242C; }
+  /* パンフレット風: 写真はモノクロ、ホバーで色が戻る */
+  .mono { filter: grayscale(100%) contrast(1.05); transition: filter 0.5s ease; }
+  a:hover .mono, .group:hover .mono { filter: grayscale(0%) contrast(1); }
 </style>

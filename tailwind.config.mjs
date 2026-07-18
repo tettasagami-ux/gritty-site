@@ -4,17 +4,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: '#1A2B33',
-        navy: '#0E1F2B',
-        teal: '#0E9AAB',
-        cyan: '#35D6DB',
-        paper: '#F6F7F8',
-        line: '#E5E8EA',
+        ink: '#17242C',
+        navy: '#17242C',
+        slate: '#2F3B42',
+        teal: '#189CB4',
+        cyan: '#2FC1D3',
+        paper: '#ECEDEA',
+        line: '#D9DAD5',
       },
       fontFamily: {
-        display: ['"Zen Kaku Gothic New"', 'sans-serif'],
+        display: ['"Shippori Mincho"', 'serif'],
         body: ['"Noto Sans JP"', 'sans-serif'],
-        en: ['"Space Grotesk"', 'sans-serif'],
+        en: ['"EB Garamond"', 'serif'],
       },
     },
   },

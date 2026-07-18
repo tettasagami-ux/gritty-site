@@ -1,0 +1,118 @@
+---
+import Base from '../../layouts/Base.astro';
+import SectionHead from '../../components/SectionHead.astro';
+import ContactBand from '../../components/ContactBand.astro';
+---
+<Base title="スポーツサイエンスサポート" description="Rapsodo・1000fpsハイスピードカメラ・フィジカル測定・専用アプリで選手の成長に伴走する、GRITTYのスポーツサイエンスサポート。">
+  <section class="border-b border-line">
+    <div class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
+      <p class="font-en text-xl italic tracking-wide text-teal"><a href="/services/" class="hover:underline">Service</a> / Sports Science Support</p>
+      <h1 class="mt-4 font-display text-4xl font-bold text-ink md:text-5xl">スポーツサイエンスサポート</h1>
+      <p class="mt-6 max-w-2xl leading-loose text-ink/70">
+        測定の数値を現場で活かし、選手が理解し、納得し、実践できる状態まで伴走する。感覚 → 計測 → 分析 → 改善 → 再測定のサイクルで、現場で使える信頼を設計します。
+      </p>
+    </div>
+  </section>
+
+  <!-- Rapsodo -->
+  <section>
+    <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 py-20 md:grid-cols-2 md:px-6 md:py-28">
+      <div>
+        <p class="font-en text-xl italic tracking-wide text-teal">Rapsodo</p>
+        <h2 class="mt-3 font-display text-3xl font-bold text-ink">球質を、数値で見える化する。</h2>
+        <p class="mt-6 leading-loose text-ink/70">
+          投球・打撃の球質データを瞬時に取得。回転数・回転効率・球速・変化量・コマンドを、選手ごとに時系列で整理します。投手は球質とリリース指標・コマンドを同時に評価、野手は打球速度・角度・飛距離からコンタクトを最適化します。
+        </p>
+      </div>
+      <div>
+        <img src="/images/rapsodo.webp" alt="グラウンドに設置された投球計測機器" class="w-full rounded-2xl object-cover" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ハイスピードカメラ -->
+  <section class="bg-ink/[0.035]">
+    <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 py-20 md:grid-cols-2 md:px-6 md:py-28">
+      <div class="order-2 md:order-1">
+        <img src="/images/service-science.webp" alt="屋内練習場でハイスピードカメラを設置し打撃を測定する様子" class="mono w-full rounded-2xl object-cover" loading="lazy" />
+      </div>
+      <div class="order-1 md:order-2">
+        <p class="font-en text-xl italic tracking-wide text-teal">High-Speed Camera</p>
+        <h2 class="mt-3 font-display text-3xl font-bold text-ink">1000fpsで、一瞬のフォームを捉える。</h2>
+        <p class="mt-6 leading-loose text-ink/70">
+          1秒間1000コマのスーパースロー映像で、肉眼では捉えきれないリリース・インパクトの瞬間を確認。Rapsodoの数値と映像を照らし合わせ、「なぜその数値が出たか」をフォームから読み解きます。数値だけでは選手の感覚と乖離し、映像だけでは再現性が弱い。両輪で感覚と数値を結びつけます。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- フィジカル + アプリ -->
+  <section>
+    <div class="mx-auto grid max-w-6xl items-center gap-12 px-4 py-20 md:grid-cols-[1fr_300px] md:px-6 md:py-28">
+      <div>
+        <p class="font-en text-xl italic tracking-wide text-teal">Physical & Conditioning</p>
+        <h2 class="mt-3 font-display text-3xl font-bold text-ink">技術と身体を、切り離さない。</h2>
+        <p class="mt-6 leading-loose text-ink/70">
+          20項目以上のフィジカル計測で、技術と身体の課題を繋いで捉えます。さらに専用のコンディショニングアプリで、日々の練習内容・主観的な体調・動画・所見をチームで共有。測定日と測定日の間も、365日分の記録が遠隔サポートと現場介入の判断材料になります。
+        </p>
+        <ul class="mt-7 space-y-2.5">
+          {['フィジカル測定（20項目以上）', 'データ一元管理・動画共有・遠隔相談', '数値＋担当者所見をアプリで即時配信', 'メニュー更新・継続フォロー'].map((t) => (
+            <li class="flex items-start gap-2.5 text-sm font-medium text-ink">
+              <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-teal"></span>{t}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <img src="/images/app-mobile.webp" alt="GRITTYコンディショニングアプリの画面" class="w-full rounded-2xl border border-line" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 成長段階 -->
+  <section class="bg-ink/[0.035]">
+    <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
+      <SectionHead en="Growth-stage Support" ja="小学生から社会人まで。成長段階に合わせた伴走。" center />
+      <div class="grid gap-x-6 gap-y-10 md:grid-cols-3">
+        {[
+          { stage: '基礎期', who: '小・中学生', items: ['基礎運動能力の計測', '柔軟性・可動域', '怪我予防の観点', 'フォームの土台固め'] },
+          { stage: '強化期', who: '高校生', items: ['フォーム・リリース分析', 'フィジカル測定', '個別最適化メニュー', '球質データによる仮説検証'] },
+          { stage: '最大化期', who: '大学・社会人チーム', items: ['実戦での仮説検証', 'シーズン中の継続サイクル', 'アプリで即時フィードバック', 'ハイスピードカメラで微調整'] },
+        ].map((g) => (
+          <div class="border-t-2 border-teal pt-5">
+            <p class="font-en text-sm font-bold text-teal">{g.stage}</p>
+            <h3 class="mt-1.5 font-display text-lg font-bold text-ink">{g.who}</h3>
+            <ul class="mt-3 space-y-1.5">
+              {g.items.map((i) => (
+                <li class="text-sm leading-relaxed text-ink/60">・{i}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 導入の流れ -->
+  <section class="bg-teal">
+    <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
+      <SectionHead en="Flow" ja="導入の流れ" center light />
+      <ol class="mx-auto grid max-w-5xl gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        {[
+          { no: '01', ja: 'お問い合わせ', desc: 'メール / LINE / 電話。1営業日以内に返信します。' },
+          { no: '02', ja: '無料デモ測定・ヒアリング', desc: '実際の技術をご体験いただき、課題やシーズンを丁寧に伺います。' },
+          { no: '03', ja: 'プラン提案・契約', desc: '課題に応じた構成・頻度・期間をご提案し、双方合意のうえ開始します。' },
+          { no: '04', ja: '現場介入・継続サポート', desc: 'レポート＋所見をアプリで配信。定期測定で仮説を検証し伴走します。' },
+        ].map((s) => (
+          <li>
+            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-white font-en text-sm font-bold text-teal">{s.no}</span>
+            <h3 class="mt-3.5 font-display text-lg font-bold text-white">{s.ja}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-white/75">{s.desc}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <ContactBand />
+</Base>
