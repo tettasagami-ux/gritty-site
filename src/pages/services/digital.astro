@@ -14,23 +14,24 @@ import ContactBand from '../../components/ContactBand.astro';
   </section>
 
   <section>
-    <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 py-20 md:grid-cols-2 md:px-6 md:py-28">
-      <div>
-        <img src="/images/service-digital.webp" alt="GRITTY DataBaseの投球分析ダッシュボード画面" class="w-full rounded-2xl border border-line object-cover" loading="lazy" />
-      </div>
-      <div class="space-y-8">
-        {[
-          { name: 'GRITTY DataBase', tag: '投球分析プラットフォーム', desc: '球速・回転数・変化量を可視化し、コーチと選手がデータで投球を最適化。セッションごとの時系列比較も。' },
-          { name: 'GRITTY Training Management', tag: 'パフォーマンス管理', desc: 'コーチが選手ごとに練習メニューを割り当て、選手がリアルタイムで進捗を記録。' },
-          { name: 'GRITTY Conditioning', tag: 'コンディション記録アプリ', desc: '体調・投球数・トレーニング量を記録し、年間の伴走を毎日の記録でつなぐ。' },
-        ].map((p) => (
-          <div class="border-t-2 border-teal pt-4">
-            <p class="font-en font-bold text-ink">{p.name}</p>
-            <p class="mt-0.5 text-xs font-medium text-teal">{p.tag}</p>
-            <p class="mt-2.5 text-sm leading-relaxed text-ink/60">{p.desc}</p>
+    <div class="mx-auto max-w-6xl space-y-20 px-4 py-20 md:space-y-28 md:px-6 md:py-28">
+      {[
+        { name: 'GRITTY DataBase', tag: '投球分析プラットフォーム', desc: '球速・回転数・変化量を可視化し、コーチと選手がデータで投球を最適化。セッションごとの時系列比較も。', img: '/images/app-database.webp', alt: 'GRITTY DataBaseのチーム球速推移グラフ画面' },
+        { name: 'GRITTY Training Management', tag: 'パフォーマンス管理', desc: 'コーチが選手ごとに練習メニューを割り当て、選手がリアルタイムで進捗を記録。', img: '/images/app-training.webp', alt: 'GRITTY Training Managementのトレーニングメニュー管理画面' },
+        { name: 'GRITTY Conditioning', tag: 'コンディション記録アプリ', desc: '体調・投球数・トレーニング量を記録し、年間の伴走を毎日の記録でつなぐ。', img: '/images/app-conditioning.webp', alt: 'GRITTY Conditioningの選手コンディション記録画面' },
+      ].map((p, i) => (
+        <div class="grid items-center gap-10 md:grid-cols-2">
+          <div class={i % 2 === 1 ? 'md:order-2' : ''}>
+            <img src={p.img} alt={p.alt} class="w-full rounded-2xl border border-line bg-white object-cover" loading="lazy" />
           </div>
-        ))}
-      </div>
+          <div class={i % 2 === 1 ? 'md:order-1' : ''}>
+            <p class="font-en text-lg italic tracking-wide text-teal">0{i + 1}</p>
+            <h2 class="mt-1 font-en text-2xl font-bold text-ink md:text-3xl">{p.name}</h2>
+            <p class="mt-1.5 text-sm font-medium text-teal">{p.tag}</p>
+            <p class="mt-5 leading-loose text-ink/70">{p.desc}</p>
+          </div>
+        </div>
+      ))}
     </div>
   </section>
 
