@@ -1,11 +1,7 @@
 {
-  "published": false,
-  "name": "GRITTY PERFORMANCE",
-  "name_en": "Performance Gym",
-  "catch": "身体を知り、整え、伸ばす。",
-  "lead": "GRITTY PERFORMANCEは、広島市安佐南区・LeaDream野球場内にある完全予約制のパフォーマンスジムです。身体評価で今の状態を把握し、ピラティス・リハビリ・ストレングスのパーソナルトレーニングで、一人ひとりの目的に合わせてサポートします。",
-  "hero_image": "/images/physical.webp",
-  "square_url": "",
+  "staff": "",
+  "access": "アストラムライン 安東駅から徒歩約10分／毘沙門台駅から徒歩約12〜15分",
+  "fees_note": "ジュニア料金は中学生以下が対象です。表示料金はすべて税込です。入会金なし。お支払いはクレジットカード・現金に対応しています。",
   "plans": [
     {
       "name": "身体評価",
@@ -68,15 +64,15 @@
       ]
     }
   ],
-  "fees_note": "ジュニア料金は中学生以下が対象です。表示料金はすべて税込です。入会金なし。お支払いはクレジットカード・現金に対応しています。",
-  "address": "〒731-0141 広島県広島市安佐南区相田1丁目6-26 LeaDream野球場内",
-  "access": "アストラムライン 安東駅から徒歩約10分／毘沙門台駅から徒歩約12〜15分",
-  "hours": "9:00〜21:00（完全予約制）",
+  "name": "GRITTY PERFORMANCE",
   "closed": "",
-  "parking": "あり（15台）",
+  "square_url": "",
   "equipment": "",
+  "published": true,
+  "hours": "9:00〜21:00（完全予約制）",
   "belongings": "動きやすい服装でお越しください。",
-  "staff": "",
+  "address": "〒731-0141 広島県広島市安佐南区相田1丁目6-26 LeaDream野球場内",
+  "hero_image": "/images/physical.webp",
   "faq": [
     {
       "q": "野球経験が浅くても参加できますか？",
@@ -90,5 +86,9 @@
       "q": "キャンセルや振替はできますか？",
       "a": ""
     }
-  ]
+  ],
+  "parking": "あり（15台）",
+  "catch": "身体を知り、整え、伸ばす。",
+  "lead": "GRITTY PERFORMANCEは、広島市安佐南区・LeaDream野球場内にある完全予約制のパフォーマンスジムです。身体評価で今の状態を把握し、ピラティス・リハビリ・ストレングスのパーソナルトレーニングで、一人ひとりの目的に合わせてサポートします。",
+  "name_en": "Performance Gym"
 }
