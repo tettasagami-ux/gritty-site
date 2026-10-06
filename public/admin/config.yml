@@ -78,7 +78,20 @@ collections:
           - { label: "駐車場", name: "parking", widget: "string", required: false }
           - { label: "主な設備", name: "equipment", widget: "text", required: false }
           - { label: "持ち物・服装", name: "belongings", widget: "text", required: false }
-          - { label: "スタッフ紹介（任意）", name: "staff", widget: "text", required: false }
+          - label: "トレーナー紹介"
+            name: "trainers"
+            widget: "list"
+            label_singular: "トレーナー"
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "顔写真（縦長がおすすめ）", name: "photo", widget: "image", required: false }
+              - { label: "名前", name: "name", widget: "string" }
+              - { label: "ローマ字表記", name: "name_en", widget: "string", required: false }
+              - { label: "肩書き（例：代表トレーナー）", name: "role", widget: "string", required: false }
+              - { label: "保有資格", name: "qualifications", widget: "list", field: { label: "資格名", name: "q", widget: "string" }, required: false }
+              - { label: "得意分野", name: "specialty", widget: "string", required: false }
+              - { label: "経歴", name: "career", widget: "text", required: false }
+              - { label: "メッセージ", name: "message", widget: "text", required: false }
           - label: "よくある質問"
             name: "faq"
             widget: "list"

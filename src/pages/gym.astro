@@ -43,6 +43,8 @@ const faqs = gym.faq.filter((f) => has(f.a));
 const mapSrc = has(gym.address) ? `https://maps.google.com/maps?q=${encodeURIComponent(gym.address.replace(/^〒\S+\s*/, ''))}&z=16&output=embed` : '';
 
 const squareReady = has(gym.square_url);
+type Trainer = { photo?: string; name?: string; name_en?: string; role?: string; specialty?: string; qualifications?: string[]; career?: string; message?: string };
+const trainers = ((gym as any).trainers ?? [] as Trainer[]).filter((t: Trainer) => has(t.name));
 ---
 <Base title={title} description={has(gym.lead) ? gym.lead : 'GRITTYが運営するパフォーマンスジム。'} noindex={!gym.published}>
   <!-- Hero -->
@@ -99,6 +101,51 @@ const squareReady = has(gym.square_url);
       </div>
     </div>
   </section>
+
+  <!-- Trainer（名前が入っているトレーナーだけ表示） -->
+  {trainers.length > 0 && (
+  <section>
+    <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
+      <SectionHead en="Trainer" ja="トレーナー紹介" />
+      <div class="divide-y divide-line border-y border-line">
+        {trainers.map((t: Trainer) => (
+          <div class="grid items-start gap-8 py-12 md:grid-cols-[260px_1fr] md:gap-12">
+            {has(t.photo) ? (
+              <img src={t.photo} alt={`${t.name}（${t.role ?? 'トレーナー'}）`} class="aspect-[4/5] w-full max-w-[260px] rounded-2xl object-cover" loading="lazy" />
+            ) : (
+              <div class="flex aspect-[4/5] w-full max-w-[260px] items-center justify-center rounded-2xl bg-ink/[0.06]">
+                <span class="font-en text-lg italic text-ink/30">Photo</span>
+              </div>
+            )}
+            <div>
+              {has(t.role) && <p class="text-sm font-bold text-teal">{t.role}</p>}
+              <h3 class="mt-1.5 font-display text-2xl font-bold text-ink md:text-3xl">{t.name}</h3>
+              {has(t.name_en) && <p class="mt-1 font-en text-base italic tracking-wide text-ink/50">{t.name_en}</p>}
+              {t.qualifications && t.qualifications.filter(has).length > 0 && (
+                <ul class="mt-5 flex flex-wrap gap-2">
+                  {t.qualifications.filter(has).map((q) => (
+                    <li class="rounded-full border border-teal/40 bg-teal/5 px-3 py-1 text-xs font-medium text-teal">{q}</li>
+                  ))}
+                </ul>
+              )}
+              {has(t.specialty) && (
+                <p class="mt-5 text-sm text-ink"><span class="mr-2 font-bold">得意分野</span><span class="text-ink/70">{t.specialty}</span></p>
+              )}
+              {has(t.career) && (
+                <p class="mt-4 whitespace-pre-line text-sm leading-relaxed text-ink/60">{t.career}</p>
+              )}
+              {has(t.message) && (
+                <blockquote class="mt-6 border-l-2 border-teal pl-5 leading-loose text-ink/80">
+                  <p class="whitespace-pre-line">{t.message}</p>
+                </blockquote>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  )}
 
   <!-- Plans -->
   <section>
@@ -190,12 +237,6 @@ const squareReady = has(gym.square_url);
       </dl>
       {mapSrc && (
         <iframe src={mapSrc} title={`${title}の地図`} class="mt-10 aspect-[16/9] w-full rounded-2xl border border-line md:aspect-[21/9]" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      )}
-      {has(gym.staff) && (
-        <div class="mt-12">
-          <p class="font-en text-xl italic tracking-wide text-teal">Staff</p>
-          <p class="mt-3 whitespace-pre-line leading-loose text-ink/70">{gym.staff}</p>
-        </div>
       )}
     </div>
   </section>
