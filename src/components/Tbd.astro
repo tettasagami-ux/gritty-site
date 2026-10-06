@@ -1,0 +1,11 @@
+---
+// 値が空のとき：必須項目は【未定：項目名】を点線枠で表示、optional の項目は何も表示しない
+interface Props { value?: string; label: string; block?: boolean; optional?: boolean }
+const { value, label, block = false, optional = false } = Astro.props;
+const filled = typeof value === 'string' && value.trim() !== '';
+---
+{filled ? (
+  block ? <span class="whitespace-pre-line">{value}</span> : <>{value}</>
+) : optional ? null : (
+  <span class="inline-block rounded border border-dashed border-teal/60 bg-teal/5 px-2 py-0.5 text-[0.9em] font-medium text-teal">【未定：{label}】</span>
+)}

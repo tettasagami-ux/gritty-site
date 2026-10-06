@@ -1,7 +1,9 @@
 ---
+import gym from '../data/gym.json';
 const nav = [
   { href: '/', ja: 'ホーム' },
   { href: '/services/', ja: '事業内容' },
+  ...(gym.published ? [{ href: '/gym/', ja: 'ジム' }] : []),
   { href: '/company/', ja: '会社概要' },
   { href: '/news/', ja: 'ニュース' },
 ];

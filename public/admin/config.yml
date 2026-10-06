@@ -44,3 +44,44 @@ collections:
           - { label: "代表メッセージ・見出し", name: "message_title", widget: "string" }
           - { label: "代表メッセージ・本文（改行可）", name: "message_body", widget: "text" }
           - { label: "代表メッセージ・署名", name: "message_name", widget: "string" }
+      - name: "gym"
+        label: "ジムページ"
+        file: "src/data/gym.json"
+        fields:
+          - { label: "公開する（メニュー表示・検索エンジン登録）", name: "published", widget: "boolean", default: false }
+          - { label: "ジム名", name: "name", widget: "string", required: false }
+          - { label: "英字表記（見出し上の小さな英字）", name: "name_en", widget: "string", required: false }
+          - { label: "キャッチコピー", name: "catch", widget: "text", required: false }
+          - { label: "紹介文（2〜3行）", name: "lead", widget: "text", required: false }
+          - { label: "メイン画像", name: "hero_image", widget: "image", required: false }
+          - { label: "予約サイト（Square）のURL", name: "square_url", widget: "string", required: false }
+          - label: "メニュー・料金"
+            name: "plans"
+            widget: "list"
+            fields:
+              - { label: "メニュー名", name: "name", widget: "string" }
+              - { label: "説明", name: "detail", widget: "text", required: false }
+              - label: "料金表（時間ごと）"
+                name: "rows"
+                widget: "list"
+                fields:
+                  - { label: "時間（例：60分）", name: "label", widget: "string" }
+                  - { label: "ジュニア料金", name: "junior", widget: "string", required: false }
+                  - { label: "学生料金", name: "student", widget: "string", required: false }
+                  - { label: "一般料金", name: "general", widget: "string", required: false }
+                  - { label: "区分なしの料金（ジュニア/学生/一般を分けない場合）", name: "price", widget: "string", required: false }
+          - { label: "料金の注記（入会金・税込/税抜・支払い方法など）", name: "fees_note", widget: "text", required: false }
+          - { label: "所在地", name: "address", widget: "string", required: false }
+          - { label: "アクセス", name: "access", widget: "string", required: false }
+          - { label: "営業時間", name: "hours", widget: "text", required: false }
+          - { label: "定休日", name: "closed", widget: "string", required: false }
+          - { label: "駐車場", name: "parking", widget: "string", required: false }
+          - { label: "主な設備", name: "equipment", widget: "text", required: false }
+          - { label: "持ち物・服装", name: "belongings", widget: "text", required: false }
+          - { label: "スタッフ紹介（任意）", name: "staff", widget: "text", required: false }
+          - label: "よくある質問"
+            name: "faq"
+            widget: "list"
+            fields:
+              - { label: "質問", name: "q", widget: "string" }
+              - { label: "回答", name: "a", widget: "text", required: false }

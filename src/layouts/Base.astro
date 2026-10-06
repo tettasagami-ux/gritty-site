@@ -6,9 +6,10 @@ import site from '../data/site.json';
 interface Props {
   title?: string;
   description?: string;
+  noindex?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, noindex = false } = Astro.props;
 const pageTitle = title ? `${title} | GRITTY株式会社` : 'GRITTY株式会社 | 現場の感覚を、科学の裏付けへ。';
 const pageDesc = description ?? 'GRITTY株式会社は、野球を中心としたスポーツデータ分析・フィジカル測定・コンディション管理、アプリ開発、動画制作を行う会社です。測定して終わりではなく、選手の成長に伴走します。';
 ---
@@ -19,6 +20,7 @@ const pageDesc = description ?? 'GRITTY株式会社は、野球を中心とし�
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{pageTitle}</title>
   <meta name="description" content={pageDesc} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
   <meta property="og:title" content={pageTitle} />
   <meta property="og:description" content={pageDesc} />
   <meta property="og:type" content="website" />

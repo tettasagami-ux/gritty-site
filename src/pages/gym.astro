@@ -1,0 +1,242 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import Tbd from '../components/Tbd.astro';
+import site from '../data/site.json';
+import gym from '../data/gym.json';
+
+const has = (v?: string) => typeof v === 'string' && v.trim() !== '';
+const title = has(gym.name) ? gym.name : 'ジム';
+
+const concepts = [
+  { t: 'まず、身体を知る', d: '身体評価で、可動域・筋力・姿勢など今の身体の状態を把握。感覚だけに頼らず、自分を正しく知るところから始めます。' },
+  { t: '一人ひとりに合わせて鍛える', d: 'ピラティス・リハビリ・ストレングスから、目的と状態に合わせてメニューを設計。完全予約制のマンツーマンで指導します。' },
+  { t: '再評価で、変化を確かめる', d: '定期的に評価し直し、変化を確認しながらメニューを更新。怪我をしにくい身体づくりからパフォーマンス向上まで伴走します。' },
+];
+
+const targets = [
+  { who: '小・中学生', sub: '基礎期', d: '正しい動きの土台づくりと、怪我をしにくい身体づくりを。保護者の方にも成長を数値でお伝えします。' },
+  { who: '高校・大学生', sub: '強化期', d: '球速アップ・打球速度アップなど、具体的な目標に向けて、動きの質とフィジカルの両面から強化します。' },
+  { who: '社会人・一般', sub: '最大化期', d: '競技を続ける方のパフォーマンス維持・向上から、日常の身体のケアや体力づくりまで対応します。' },
+];
+
+const flow = [
+  has(gym.square_url)
+    ? { no: '01', ja: 'Webで予約', desc: '予約サイトから、ご都合のよい日時を選んでお申し込みください（完全予約制）。' }
+    : { no: '01', ja: 'LINEで予約', desc: '公式LINEから、ご希望のメニューと日時をお送りください（完全予約制）。' },
+  { no: '02', ja: 'ヒアリング・身体評価', desc: '目的やお悩みを伺い、今の身体の状態をチェックします。' },
+  { no: '03', ja: 'パーソナルトレーニング', desc: '評価結果をもとに、一人ひとりに合わせたメニューでトレーニングします。' },
+  { no: '04', ja: '再評価・継続', desc: '定期的に評価し直し、変化を確認しながらメニューを更新します。' },
+];
+
+const info = [
+  { k: '所在地', v: gym.address, l: '住所' },
+  { k: 'アクセス', v: gym.access, l: '最寄り駅・徒歩分数' },
+  { k: '営業時間', v: gym.hours, l: '営業時間' },
+  { k: '定休日', v: gym.closed, l: '定休日', opt: true },
+  { k: '駐車場', v: gym.parking, l: '駐車場の有無', opt: true },
+  { k: '主な設備', v: gym.equipment, l: '設備・機材', opt: true },
+  { k: '持ち物・服装', v: gym.belongings, l: '持ち物・服装', opt: true },
+].filter((r) => !r.opt || has(r.v));
+
+const faqs = gym.faq.filter((f) => has(f.a));
+const mapSrc = has(gym.address) ? `https://maps.google.com/maps?q=${encodeURIComponent(gym.address.replace(/^〒\S+\s*/, ''))}&z=16&output=embed` : '';
+
+const squareReady = has(gym.square_url);
+---
+<Base title={title} description={has(gym.lead) ? gym.lead : 'GRITTYが運営するパフォーマンスジム。'} noindex={!gym.published}>
+  <!-- Hero -->
+  <section class="border-b border-line">
+    <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 pb-16 pt-14 md:grid-cols-[7fr_5fr] md:px-6 md:pb-24 md:pt-20">
+      <div>
+        <p class="font-en text-xl italic tracking-wide text-teal">{has(gym.name_en) ? gym.name_en : 'GRITTY Gym'}</p>
+        <h1 class="mt-4 font-display text-4xl font-bold text-ink md:text-5xl"><Tbd value={gym.name} label="ジム名" /></h1>
+        <p class="mt-6 font-display text-xl font-bold leading-relaxed text-ink md:text-2xl"><Tbd value={gym.catch} label="キャッチコピー" block /></p>
+        <p class="mt-5 max-w-lg leading-loose text-ink/70"><Tbd value={gym.lead} label="紹介文（2〜3行）" block /></p>
+        <div class="mt-9 flex flex-wrap gap-4">
+          {squareReady ? (
+            <a href={gym.square_url} target="_blank" rel="noopener" class="rounded-full bg-navy px-8 py-3.5 font-bold text-white transition hover:bg-teal">予約する</a>
+          ) : (
+            <span class="rounded-full bg-navy/40 px-8 py-3.5 font-bold text-white" title="予約サイトURLが未設定です">予約（準備中）</span>
+          )}
+          <a href={site.line_url} target="_blank" rel="noopener" class="rounded-full border border-ink/20 px-8 py-3.5 font-bold text-ink transition hover:border-teal hover:text-teal">LINEで相談する</a>
+        </div>
+      </div>
+      <div>
+        <img src={gym.hero_image} alt={`${title}でのトレーニングの様子`} class="w-full rounded-2xl object-cover" loading="eager" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Concept -->
+  <section>
+    <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
+      <SectionHead en="Concept" ja="身体を知ることから、すべてが始まる。" />
+      <div class="grid gap-x-6 gap-y-10 md:grid-cols-3">
+        {concepts.map((c, i) => (
+          <div class="border-t-2 border-teal pt-5">
+            <p class="font-en text-sm font-bold text-teal">{String(i + 1).padStart(2, '0')}</p>
+            <h3 class="mt-1.5 font-display text-lg font-bold text-ink">{c.t}</h3>
+            <p class="mt-2.5 text-sm leading-relaxed text-ink/60">{c.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Target -->
+  <section class="bg-ink/[0.035]">
+    <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
+      <SectionHead en="For" ja="小学生から社会人まで。" center />
+      <div class="grid gap-6 md:grid-cols-3">
+        {targets.map((t) => (
+          <div class="rounded-2xl border border-line bg-white p-7">
+            <p class="font-en text-sm font-bold text-teal">{t.sub}</p>
+            <h3 class="mt-1.5 font-display text-xl font-bold text-ink">{t.who}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-ink/60">{t.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Plans -->
+  <section>
+    <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
+      <SectionHead en="Menu & Price" ja="メニュー・料金" />
+      <div class="space-y-6">
+        {gym.plans.map((p, i) => {
+          const tiered = p.rows.some((r) => has(r.junior) || has(r.student) || has(r.general));
+          return (
+          <div class="grid gap-6 rounded-2xl border border-line bg-white p-7 md:grid-cols-[5fr_7fr] md:gap-10 md:p-9">
+            <div>
+              <p class="font-en text-sm font-bold text-teal">Menu {String(i + 1).padStart(2, '0')}</p>
+              <h3 class="mt-1.5 font-display text-xl font-bold text-ink">{p.name}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-ink/60"><Tbd value={p.detail} label="内容" block optional /></p>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full min-w-[280px] text-sm">
+                <thead>
+                  <tr class="border-b border-ink/20 text-left text-xs text-ink/50">
+                    <th class="py-2 pr-3 font-medium">時間</th>
+                    {tiered ? (
+                      <>
+                        <th class="px-2 py-2 text-right font-medium">ジュニア</th>
+                        <th class="px-2 py-2 text-right font-medium">学生</th>
+                        <th class="py-2 pl-2 text-right font-medium">一般</th>
+                      </>
+                    ) : (
+                      <th class="py-2 pl-2 text-right font-medium">料金</th>
+                    )}
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-line">
+                  {p.rows.map((r) => (
+                    <tr>
+                      <td class="py-3 pr-3 font-medium text-ink">{r.label}</td>
+                      {tiered ? (
+                        <>
+                          <td class="px-2 py-3 text-right font-bold text-ink"><Tbd value={r.junior} label="料金" /></td>
+                          <td class="px-2 py-3 text-right font-bold text-ink"><Tbd value={r.student} label="料金" /></td>
+                          <td class="py-3 pl-2 text-right font-bold text-ink"><Tbd value={r.general} label="料金" /></td>
+                        </>
+                      ) : (
+                        <td class="py-3 pl-2 text-right font-bold text-ink"><Tbd value={r.price} label="料金" /></td>
+                      )}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          );
+        })}
+      </div>
+      <p class="mt-6 text-sm leading-relaxed text-ink/60"><Tbd value={gym.fees_note} label="入会金・税込/税抜・支払い方法などの注記" block optional /></p>
+    </div>
+  </section>
+
+  <!-- Flow -->
+  <section class="bg-teal">
+    <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
+      <SectionHead en="Flow" ja="ご予約からの流れ" center light />
+      <ol class="mx-auto grid max-w-5xl gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        {flow.map((s) => (
+          <li>
+            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-white font-en text-sm font-bold text-teal">{s.no}</span>
+            <h3 class="mt-3.5 font-display text-lg font-bold text-white">{s.ja}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-white/75">{s.desc}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Info -->
+  <section>
+    <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
+      <SectionHead en="Access" ja="施設情報" />
+      <dl class="divide-y divide-line border-y border-line">
+        {info.map((r) => (
+          <div class="grid gap-1 py-5 sm:grid-cols-[180px_1fr] sm:gap-6">
+            <dt class="text-sm font-bold text-ink">{r.k}</dt>
+            <dd class="text-sm leading-relaxed text-ink/70"><Tbd value={r.v} label={r.l} block optional={r.opt} /></dd>
+          </div>
+        ))}
+        <div class="grid gap-1 py-5 sm:grid-cols-[180px_1fr] sm:gap-6">
+          <dt class="text-sm font-bold text-ink">運営</dt>
+          <dd class="text-sm leading-relaxed text-ink/70">{site.company_name}</dd>
+        </div>
+      </dl>
+      {mapSrc && (
+        <iframe src={mapSrc} title={`${title}の地図`} class="mt-10 aspect-[16/9] w-full rounded-2xl border border-line md:aspect-[21/9]" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      )}
+      {has(gym.staff) && (
+        <div class="mt-12">
+          <p class="font-en text-xl italic tracking-wide text-teal">Staff</p>
+          <p class="mt-3 whitespace-pre-line leading-loose text-ink/70">{gym.staff}</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- FAQ（回答が入っている質問だけ表示） -->
+  {faqs.length > 0 && (
+  <section class="bg-ink/[0.035]">
+    <div class="mx-auto max-w-4xl px-4 py-20 md:px-6 md:py-28">
+      <SectionHead en="FAQ" ja="よくあるご質問" center />
+      <div class="divide-y divide-line border-y border-line bg-white">
+        {faqs.map((f) => (
+          <details class="group px-6 py-5">
+            <summary class="flex cursor-pointer list-none items-start justify-between gap-4 font-bold text-ink">
+              <span><span class="mr-2 font-en text-teal">Q.</span>{f.q}</span>
+              <span class="mt-0.5 text-teal transition group-open:rotate-45">＋</span>
+            </summary>
+            <p class="mt-3 whitespace-pre-line text-sm leading-relaxed text-ink/70"><span class="mr-2 font-en font-bold text-teal">A.</span>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+  )}
+
+  <!-- CTA -->
+  <section class="bg-slate">
+    <div class="mx-auto max-w-6xl px-4 py-20 text-center md:px-6">
+      <p class="font-en text-2xl italic tracking-wide text-cyan">Reservation</p>
+      <h2 class="mt-3 font-display text-3xl font-bold text-white md:text-4xl">まずは、身体を知るところから。</h2>
+      <p class="mx-auto mt-5 max-w-2xl leading-relaxed text-white/70">
+        完全予約制のマンツーマンで、一人ひとりに向き合います。<br class="hidden md:block" />
+        {squareReady ? 'ご予約は予約サイトから、ご質問はLINEでお気軽にどうぞ。' : 'ご予約・ご質問は、公式LINEからお気軽にどうぞ。'}
+      </p>
+      <div class="mt-9 flex flex-wrap justify-center gap-4">
+        {squareReady ? (
+          <a href={gym.square_url} target="_blank" rel="noopener" class="rounded-full bg-cyan px-8 py-3.5 font-bold text-ink transition hover:bg-white">予約する</a>
+        ) : (
+          <span class="rounded-full bg-cyan/40 px-8 py-3.5 font-bold text-ink/70">予約（準備中）</span>
+        )}
+        <a href={site.line_url} target="_blank" rel="noopener" class="rounded-full border border-white/40 px-8 py-3.5 font-bold text-white transition hover:border-cyan hover:text-cyan">LINEで相談する</a>
+      </div>
+    </div>
+  </section>
+</Base>
