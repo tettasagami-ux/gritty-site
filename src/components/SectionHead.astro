@@ -4,10 +4,11 @@ interface Props {
   ja: string;
   center?: boolean;
   light?: boolean;
+  compact?: boolean;
 }
-const { en, ja, center = false, light = false } = Astro.props;
+const { en, ja, center = false, light = false, compact = false } = Astro.props;
 ---
-<div class={`mb-12 ${center ? 'text-center' : ''}`}>
+<div class={`${compact ? 'mb-8 md:mb-10' : 'mb-12'} ${center ? 'text-center' : ''}`}>
   <p class={`font-en text-2xl italic tracking-wide md:text-3xl ${light ? 'text-white/90' : 'text-teal'}`}>{en}</p>
   <h2 class={`mt-2.5 font-display text-[26px] font-bold leading-snug md:text-4xl ${light ? 'text-white' : 'text-ink'}`}>{ja}</h2>
 </div>

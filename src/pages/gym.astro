@@ -62,7 +62,7 @@ const trainers = ((gym as any).trainers ?? [] as Trainer[]).filter((t: Trainer) 
 <Base title={title} description={has(gym.lead) ? gym.lead : 'GRITTYが運営するパフォーマンスジム。'} noindex={!gym.published}>
   <!-- Hero -->
   <section class="border-b border-line">
-    <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 pb-16 pt-14 md:grid-cols-[7fr_5fr] md:px-6 md:pb-24 md:pt-20">
+    <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 pb-12 pt-10 md:grid-cols-[7fr_5fr] md:px-6 md:pb-16 md:pt-14">
       <div>
         <p class="font-en text-xl italic tracking-wide text-teal">{has(gym.name_en) ? gym.name_en : 'GRITTY Gym'}</p>
         <h1 class="mt-4 font-display text-4xl font-bold text-ink md:text-5xl"><Tbd value={gym.name} label="ジム名" /></h1>
@@ -86,8 +86,8 @@ const trainers = ((gym as any).trainers ?? [] as Trainer[]).filter((t: Trainer) 
   <!-- Pains -->
   {pains.length > 0 && (
   <section class="bg-ink/[0.035]">
-    <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
-      <SectionHead en="Problem" ja="こんなお悩みはありませんか？" center />
+    <div class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+      <SectionHead compact en="Problem" ja="こんなお悩みはありませんか？" center />
       <ul class="mx-auto grid max-w-4xl gap-3 sm:grid-cols-2">
         {pains.map((p) => (
           <li class="flex items-start gap-3 rounded-xl border border-line bg-white px-5 py-4 text-ink">
@@ -96,15 +96,15 @@ const trainers = ((gym as any).trainers ?? [] as Trainer[]).filter((t: Trainer) 
           </li>
         ))}
       </ul>
-      <p class="mt-10 text-center font-display text-lg font-bold leading-relaxed text-ink md:text-xl">その悩み、まずは<span class="text-teal">身体を正しく知ること</span>から。</p>
+      <p class="mt-8 text-center font-display text-lg font-bold leading-relaxed text-ink md:text-xl">その悩み、まずは<span class="text-teal">身体を正しく知ること</span>から。</p>
     </div>
   </section>
   )}
 
   <!-- Concept -->
   <section>
-    <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
-      <SectionHead en="Concept" ja="身体を知ることから、すべてが始まる。" />
+    <div class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+      <SectionHead compact en="Concept" ja="身体を知ることから、すべてが始まる。" />
       <div class="grid gap-x-6 gap-y-10 md:grid-cols-3">
         {concepts.map((c, i) => (
           <div class="border-t-2 border-teal pt-5">
@@ -120,8 +120,8 @@ const trainers = ((gym as any).trainers ?? [] as Trainer[]).filter((t: Trainer) 
   <!-- Reasons -->
   {reasons.length > 0 && (
   <section class="bg-slate">
-    <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
-      <SectionHead en="Features" ja={`${title}の特長`} light />
+    <div class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+      <SectionHead compact en="Features" ja={`${title}の特長`} light />
       <div class="grid gap-6 md:grid-cols-2">
         {reasons.map((r, i) => (
           <div class="rounded-2xl border border-white/10 bg-white/[0.04] p-7">
@@ -137,8 +137,8 @@ const trainers = ((gym as any).trainers ?? [] as Trainer[]).filter((t: Trainer) 
 
   <!-- Target -->
   <section class="bg-ink/[0.035]">
-    <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
-      <SectionHead en="For" ja="小学生から社会人まで。" center />
+    <div class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+      <SectionHead compact en="For" ja="小学生から社会人まで。" center />
       <div class="grid gap-6 md:grid-cols-3">
         {targets.map((t) => (
           <div class="rounded-2xl border border-line bg-white p-7">
@@ -154,9 +154,9 @@ const trainers = ((gym as any).trainers ?? [] as Trainer[]).filter((t: Trainer) 
   <!-- Trainer（名前が入っているトレーナーだけ表示） -->
   {trainers.length > 0 && (
   <section>
-    <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
-      <SectionHead en="Trainer" ja="トレーナー紹介" />
-      <div class="space-y-24">
+    <div class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+      <SectionHead compact en="Trainer" ja="トレーナー紹介" />
+      <div class="space-y-16">
         {trainers.map((t: Trainer) => {
           const stats = nz(t.stats).filter((x) => has(x.value));
           const approach = nz(t.approach).filter((x) => has(x.title));
@@ -166,7 +166,7 @@ const trainers = ((gym as any).trainers ?? [] as Trainer[]).filter((t: Trainer) 
           const societies = nz(t.societies).filter(has);
           const quals = nz(t.qualifications).filter(has);
           return (
-          <article class="border-t border-line pt-12">
+          <article class="border-t border-line pt-10">
             <!-- プロフィール -->
             <div class="grid items-start gap-8 md:grid-cols-[300px_1fr] md:gap-12">
               {has(t.photo) ? (
@@ -198,7 +198,7 @@ const trainers = ((gym as any).trainers ?? [] as Trainer[]).filter((t: Trainer) 
 
             <!-- 数字で見る -->
             {stats.length > 0 && (
-              <dl class="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-4">
+              <dl class="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-4">
                 {stats.map((x) => (
                   <div class="flex flex-col-reverse bg-white px-5 py-6 text-center">
                     <dt class="mt-1 text-xs leading-snug text-ink/60">{x.label}</dt>
@@ -210,10 +210,10 @@ const trainers = ((gym as any).trainers ?? [] as Trainer[]).filter((t: Trainer) 
 
             <!-- 指導で大切にしていること -->
             {approach.length > 0 && (
-              <div class="mt-16">
+              <div class="mt-12">
                 <p class="font-en text-xl italic tracking-wide text-teal">Approach</p>
                 <h4 class="mt-2 font-display text-2xl font-bold text-ink">指導で大切にしていること</h4>
-                <div class="mt-8 grid gap-x-6 gap-y-8 md:grid-cols-3">
+                <div class="mt-6 grid gap-x-6 gap-y-6 md:grid-cols-3">
                   {approach.map((a, i) => (
                     <div class="border-t-2 border-teal pt-5">
                       <p class="font-en text-sm font-bold text-teal">{String(i + 1).padStart(2, '0')}</p>
@@ -227,7 +227,7 @@ const trainers = ((gym as any).trainers ?? [] as Trainer[]).filter((t: Trainer) 
 
             <!-- 経歴・実績 -->
             {(timeline.length > 0 || teams.length > 0) && (
-              <div class="mt-16 grid gap-12 md:grid-cols-2">
+              <div class="mt-12 grid gap-10 md:grid-cols-2">
                 {timeline.length > 0 && (
                   <div>
                     <p class="font-en text-xl italic tracking-wide text-teal">Career</p>
@@ -291,8 +291,8 @@ const trainers = ((gym as any).trainers ?? [] as Trainer[]).filter((t: Trainer) 
   <!-- Gallery（画像が入っているときだけ表示） -->
   {gallery.length > 0 && (
   <section class="bg-ink/[0.035]">
-    <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
-      <SectionHead en="Facility" ja="施設・トレーニング風景" />
+    <div class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+      <SectionHead compact en="Facility" ja="施設・トレーニング風景" />
       <div class="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
         {gallery.map((g) => (
           <figure>
@@ -307,8 +307,8 @@ const trainers = ((gym as any).trainers ?? [] as Trainer[]).filter((t: Trainer) 
 
   <!-- Plans -->
   <section>
-    <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
-      <SectionHead en="Menu & Price" ja="メニュー・料金" />
+    <div class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+      <SectionHead compact en="Menu & Price" ja="メニュー・料金" />
       <div class="space-y-6">
         {gym.plans.map((p, i) => {
           const tiered = p.rows.some((r) => has(r.junior) || has(r.student) || has(r.general));
@@ -363,8 +363,8 @@ const trainers = ((gym as any).trainers ?? [] as Trainer[]).filter((t: Trainer) 
 
   <!-- Flow -->
   <section class="bg-teal">
-    <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
-      <SectionHead en="Flow" ja="ご予約からの流れ" center light />
+    <div class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+      <SectionHead compact en="Flow" ja="ご予約からの流れ" center light />
       <ol class="mx-auto grid max-w-5xl gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
         {flow.map((s) => (
           <li>
@@ -380,8 +380,8 @@ const trainers = ((gym as any).trainers ?? [] as Trainer[]).filter((t: Trainer) 
   <!-- FAQ（回答が入っている質問だけ表示） -->
   {faqs.length > 0 && (
   <section class="bg-ink/[0.035]">
-    <div class="mx-auto max-w-4xl px-4 py-20 md:px-6 md:py-28">
-      <SectionHead en="FAQ" ja="よくあるご質問" center />
+    <div class="mx-auto max-w-4xl px-4 py-12 md:px-6 md:py-16">
+      <SectionHead compact en="FAQ" ja="よくあるご質問" center />
       <div class="divide-y divide-line border-y border-line bg-white">
         {faqs.map((f) => (
           <details class="group px-6 py-5">
@@ -399,8 +399,8 @@ const trainers = ((gym as any).trainers ?? [] as Trainer[]).filter((t: Trainer) 
 
   <!-- Info -->
   <section>
-    <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
-      <SectionHead en="Access" ja="施設情報" />
+    <div class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+      <SectionHead compact en="Access" ja="施設情報" />
       <dl class="divide-y divide-line border-y border-line">
         {info.map((r) => (
           <div class="grid gap-1 py-5 sm:grid-cols-[180px_1fr] sm:gap-6">
@@ -414,14 +414,14 @@ const trainers = ((gym as any).trainers ?? [] as Trainer[]).filter((t: Trainer) 
         </div>
       </dl>
       {mapSrc && (
-        <iframe src={mapSrc} title={`${title}の地図`} class="mt-10 aspect-[16/9] w-full rounded-2xl border border-line md:aspect-[21/9]" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src={mapSrc} title={`${title}の地図`} class="mt-8 aspect-[16/9] w-full rounded-2xl border border-line md:aspect-[21/9]" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       )}
     </div>
   </section>
 
   <!-- CTA -->
   <section class="bg-slate">
-    <div class="mx-auto max-w-6xl px-4 py-20 text-center md:px-6">
+    <div class="mx-auto max-w-6xl px-4 py-14 text-center md:px-6 md:py-16">
       <p class="font-en text-2xl italic tracking-wide text-cyan">Reservation</p>
       <h2 class="mt-3 font-display text-3xl font-bold text-white md:text-4xl">まずは、身体を知るところから。</h2>
       <p class="mx-auto mt-5 max-w-2xl leading-relaxed text-white/70">
