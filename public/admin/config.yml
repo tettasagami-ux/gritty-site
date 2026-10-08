@@ -55,6 +55,21 @@ collections:
           - { label: "紹介文（2〜3行）", name: "lead", widget: "text", required: false }
           - { label: "メイン画像", name: "hero_image", widget: "image", required: false }
           - { label: "予約サイト（Square）のURL", name: "square_url", widget: "string", required: false }
+          - { label: "お悩みリスト（こんなお悩みはありませんか？）", name: "pains", widget: "list", field: { label: "お悩み", name: "p", widget: "string" }, required: false }
+          - label: "特長"
+            name: "reasons"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "見出し", name: "title", widget: "string" }
+              - { label: "本文", name: "text", widget: "text" }
+          - label: "施設・トレーニング風景の写真"
+            name: "gallery"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "写真", name: "image", widget: "image" }
+              - { label: "説明（任意）", name: "caption", widget: "string", required: false }
           - label: "メニュー・料金"
             name: "plans"
             widget: "list"
@@ -90,7 +105,39 @@ collections:
               - { label: "肩書き（例：代表トレーナー）", name: "role", widget: "string", required: false }
               - { label: "保有資格", name: "qualifications", widget: "list", field: { label: "資格名", name: "q", widget: "string" }, required: false }
               - { label: "得意分野", name: "specialty", widget: "string", required: false }
-              - { label: "経歴", name: "career", widget: "text", required: false }
+              - { label: "紹介文（プロフィールの下に表示）", name: "intro", widget: "text", required: false }
+              - { label: "経歴（自由記述・任意）", name: "career", widget: "text", required: false }
+              - label: "数字で見る（4つまでがおすすめ）"
+                name: "stats"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "数字・キーワード（例：14年以上）", name: "value", widget: "string" }
+                  - { label: "説明", name: "label", widget: "string" }
+              - label: "指導で大切にしていること"
+                name: "approach"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "見出し", name: "title", widget: "string" }
+                  - { label: "本文", name: "text", widget: "text" }
+              - label: "経歴（年表）"
+                name: "timeline"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "年", name: "year", widget: "string" }
+                  - { label: "内容", name: "text", widget: "text" }
+              - label: "チームサポート実績"
+                name: "teams"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "期間", name: "period", widget: "string" }
+                  - { label: "チーム名", name: "name", widget: "string" }
+                  - { label: "内容・実績", name: "note", widget: "text", required: false }
+              - { label: "そのほかの活動", name: "activities", widget: "list", field: { label: "活動", name: "a", widget: "string" }, required: false }
+              - { label: "所属学会", name: "societies", widget: "list", field: { label: "学会名", name: "s", widget: "string" }, required: false }
               - { label: "メッセージ", name: "message", widget: "text", required: false }
           - label: "よくある質問"
             name: "faq"

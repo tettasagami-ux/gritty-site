@@ -43,7 +43,20 @@ const faqs = gym.faq.filter((f) => has(f.a));
 const mapSrc = has(gym.address) ? `https://maps.google.com/maps?q=${encodeURIComponent(gym.address.replace(/^〒\S+\s*/, ''))}&z=16&output=embed` : '';
 
 const squareReady = has(gym.square_url);
-type Trainer = { photo?: string; name?: string; name_en?: string; role?: string; specialty?: string; qualifications?: string[]; career?: string; message?: string };
+type Trainer = {
+  photo?: string; name?: string; name_en?: string; role?: string; specialty?: string; qualifications?: string[];
+  intro?: string; career?: string; message?: string;
+  stats?: { value: string; label: string }[];
+  approach?: { title: string; text: string }[];
+  timeline?: { year: string; text: string }[];
+  teams?: { period: string; name: string; note?: string }[];
+  activities?: string[];
+  societies?: string[];
+};
+const nz = <T,>(a?: T[]) => (Array.isArray(a) ? a : []);
+const pains = nz((gym as any).pains as string[]).filter(has);
+const reasons = nz((gym as any).reasons as { title: string; text: string }[]).filter((r) => has(r.title));
+const gallery = nz((gym as any).gallery as { image: string; caption?: string }[]).filter((g) => has(g.image));
 const trainers = ((gym as any).trainers ?? [] as Trainer[]).filter((t: Trainer) => has(t.name));
 ---
 <Base title={title} description={has(gym.lead) ? gym.lead : 'GRITTYが運営するパフォーマンスジム。'} noindex={!gym.published}>
@@ -70,6 +83,24 @@ const trainers = ((gym as any).trainers ?? [] as Trainer[]).filter((t: Trainer) 
     </div>
   </section>
 
+  <!-- Pains -->
+  {pains.length > 0 && (
+  <section class="bg-ink/[0.035]">
+    <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
+      <SectionHead en="Problem" ja="こんなお悩みはありませんか？" center />
+      <ul class="mx-auto grid max-w-4xl gap-3 sm:grid-cols-2">
+        {pains.map((p) => (
+          <li class="flex items-start gap-3 rounded-xl border border-line bg-white px-5 py-4 text-ink">
+            <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-teal text-[11px] font-bold text-white">✓</span>
+            <span class="text-sm font-medium leading-relaxed md:text-base">{p}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-10 text-center font-display text-lg font-bold leading-relaxed text-ink md:text-xl">その悩み、まずは<span class="text-teal">身体を正しく知ること</span>から。</p>
+    </div>
+  </section>
+  )}
+
   <!-- Concept -->
   <section>
     <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
@@ -85,6 +116,24 @@ const trainers = ((gym as any).trainers ?? [] as Trainer[]).filter((t: Trainer) 
       </div>
     </div>
   </section>
+
+  <!-- Reasons -->
+  {reasons.length > 0 && (
+  <section class="bg-slate">
+    <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
+      <SectionHead en="Features" ja={`${title}の特長`} light />
+      <div class="grid gap-6 md:grid-cols-2">
+        {reasons.map((r, i) => (
+          <div class="rounded-2xl border border-white/10 bg-white/[0.04] p-7">
+            <p class="font-en text-3xl italic text-cyan">{String(i + 1).padStart(2, '0')}</p>
+            <h3 class="mt-3 font-display text-xl font-bold text-white">{r.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-white/70">{r.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  )}
 
   <!-- Target -->
   <section class="bg-ink/[0.035]">
@@ -107,40 +156,149 @@ const trainers = ((gym as any).trainers ?? [] as Trainer[]).filter((t: Trainer) 
   <section>
     <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
       <SectionHead en="Trainer" ja="トレーナー紹介" />
-      <div class="divide-y divide-line border-y border-line">
-        {trainers.map((t: Trainer) => (
-          <div class="grid items-start gap-8 py-12 md:grid-cols-[260px_1fr] md:gap-12">
-            {has(t.photo) ? (
-              <img src={t.photo} alt={`${t.name}（${t.role ?? 'トレーナー'}）`} class="aspect-[4/5] w-full max-w-[260px] rounded-2xl object-cover" loading="lazy" />
-            ) : (
-              <div class="flex aspect-[4/5] w-full max-w-[260px] items-center justify-center rounded-2xl bg-ink/[0.06]">
-                <span class="font-en text-lg italic text-ink/30">Photo</span>
+      <div class="space-y-24">
+        {trainers.map((t: Trainer) => {
+          const stats = nz(t.stats).filter((x) => has(x.value));
+          const approach = nz(t.approach).filter((x) => has(x.title));
+          const timeline = nz(t.timeline).filter((x) => has(x.text));
+          const teams = nz(t.teams).filter((x) => has(x.name));
+          const activities = nz(t.activities).filter(has);
+          const societies = nz(t.societies).filter(has);
+          const quals = nz(t.qualifications).filter(has);
+          return (
+          <article class="border-t border-line pt-12">
+            <!-- プロフィール -->
+            <div class="grid items-start gap-8 md:grid-cols-[300px_1fr] md:gap-12">
+              {has(t.photo) ? (
+                <img src={t.photo} alt={`${t.name}（${t.role ?? 'トレーナー'}）`} class="aspect-[4/5] w-full max-w-[300px] rounded-2xl object-cover" loading="lazy" />
+              ) : (
+                <div class="flex aspect-[4/5] w-full max-w-[300px] items-center justify-center rounded-2xl bg-ink/[0.06]">
+                  <span class="font-en text-lg italic text-ink/30">Photo</span>
+                </div>
+              )}
+              <div>
+                {has(t.role) && <p class="text-sm font-bold text-teal">{t.role}</p>}
+                <h3 class="mt-1.5 font-display text-3xl font-bold text-ink md:text-4xl">{t.name}</h3>
+                {has(t.name_en) && <p class="mt-1 font-en text-lg italic tracking-wide text-ink/50">{t.name_en}</p>}
+                {quals.length > 0 && (
+                  <ul class="mt-5 flex flex-wrap gap-2">
+                    {quals.map((q) => <li class="rounded-full border border-teal/40 bg-teal/5 px-3 py-1 text-xs font-medium text-teal">{q}</li>)}
+                  </ul>
+                )}
+                {has(t.specialty) && (
+                  <p class="mt-5 text-sm text-ink"><span class="mr-2 font-bold">得意分野</span><span class="text-ink/70">{t.specialty}</span></p>
+                )}
+                {has(t.intro) && <p class="mt-5 whitespace-pre-line leading-loose text-ink/75">{t.intro}</p>}
+                {has(t.career) && <p class="mt-4 whitespace-pre-line text-sm leading-relaxed text-ink/60">{t.career}</p>}
+                {has(t.message) && (
+                  <blockquote class="mt-6 border-l-2 border-teal pl-5 leading-loose text-ink/80"><p class="whitespace-pre-line">{t.message}</p></blockquote>
+                )}
+              </div>
+            </div>
+
+            <!-- 数字で見る -->
+            {stats.length > 0 && (
+              <dl class="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-4">
+                {stats.map((x) => (
+                  <div class="flex flex-col-reverse bg-white px-5 py-6 text-center">
+                    <dt class="mt-1 text-xs leading-snug text-ink/60">{x.label}</dt>
+                    <dd class="font-display text-2xl font-bold text-teal md:text-3xl">{x.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
+
+            <!-- 指導で大切にしていること -->
+            {approach.length > 0 && (
+              <div class="mt-16">
+                <p class="font-en text-xl italic tracking-wide text-teal">Approach</p>
+                <h4 class="mt-2 font-display text-2xl font-bold text-ink">指導で大切にしていること</h4>
+                <div class="mt-8 grid gap-x-6 gap-y-8 md:grid-cols-3">
+                  {approach.map((a, i) => (
+                    <div class="border-t-2 border-teal pt-5">
+                      <p class="font-en text-sm font-bold text-teal">{String(i + 1).padStart(2, '0')}</p>
+                      <h5 class="mt-1.5 font-display text-lg font-bold text-ink">{a.title}</h5>
+                      <p class="mt-2.5 text-sm leading-relaxed text-ink/60">{a.text}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
-            <div>
-              {has(t.role) && <p class="text-sm font-bold text-teal">{t.role}</p>}
-              <h3 class="mt-1.5 font-display text-2xl font-bold text-ink md:text-3xl">{t.name}</h3>
-              {has(t.name_en) && <p class="mt-1 font-en text-base italic tracking-wide text-ink/50">{t.name_en}</p>}
-              {t.qualifications && t.qualifications.filter(has).length > 0 && (
-                <ul class="mt-5 flex flex-wrap gap-2">
-                  {t.qualifications.filter(has).map((q) => (
-                    <li class="rounded-full border border-teal/40 bg-teal/5 px-3 py-1 text-xs font-medium text-teal">{q}</li>
-                  ))}
-                </ul>
-              )}
-              {has(t.specialty) && (
-                <p class="mt-5 text-sm text-ink"><span class="mr-2 font-bold">得意分野</span><span class="text-ink/70">{t.specialty}</span></p>
-              )}
-              {has(t.career) && (
-                <p class="mt-4 whitespace-pre-line text-sm leading-relaxed text-ink/60">{t.career}</p>
-              )}
-              {has(t.message) && (
-                <blockquote class="mt-6 border-l-2 border-teal pl-5 leading-loose text-ink/80">
-                  <p class="whitespace-pre-line">{t.message}</p>
-                </blockquote>
-              )}
-            </div>
-          </div>
+
+            <!-- 経歴・実績 -->
+            {(timeline.length > 0 || teams.length > 0) && (
+              <div class="mt-16 grid gap-12 md:grid-cols-2">
+                {timeline.length > 0 && (
+                  <div>
+                    <p class="font-en text-xl italic tracking-wide text-teal">Career</p>
+                    <h4 class="mt-2 font-display text-2xl font-bold text-ink">経歴</h4>
+                    <ol class="mt-7 border-l border-teal/40">
+                      {timeline.map((e) => (
+                        <li class="relative pb-6 pl-6 last:pb-0">
+                          <span class="absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full bg-teal"></span>
+                          <p class="font-en text-sm font-bold text-teal">{e.year}</p>
+                          <p class="mt-1 text-sm leading-relaxed text-ink/75">{e.text}</p>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                )}
+                <div class="space-y-10">
+                  {teams.length > 0 && (
+                    <div>
+                      <p class="font-en text-xl italic tracking-wide text-teal">Team Support</p>
+                      <h4 class="mt-2 font-display text-2xl font-bold text-ink">チームサポート実績</h4>
+                      <ul class="mt-7 space-y-3">
+                        {teams.map((m) => (
+                          <li class="rounded-xl border border-line bg-white p-5">
+                            <p class="text-xs font-medium text-ink/50">{m.period}</p>
+                            <p class="mt-1 font-bold text-ink">{m.name}</p>
+                            {has(m.note) && <p class="mt-1.5 text-sm leading-relaxed text-ink/60">{m.note}</p>}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {activities.length > 0 && (
+                    <div>
+                      <h4 class="font-display text-lg font-bold text-ink">そのほかの活動</h4>
+                      <ul class="mt-3 space-y-1.5">
+                        {activities.map((a) => (
+                          <li class="flex items-start gap-2.5 text-sm text-ink/70"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal"></span>{a}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {societies.length > 0 && (
+                    <div>
+                      <h4 class="font-display text-lg font-bold text-ink">所属学会</h4>
+                      <ul class="mt-3 flex flex-wrap gap-2">
+                        {societies.map((x) => <li class="rounded-full bg-ink/[0.05] px-3 py-1 text-xs text-ink/70">{x}</li>)}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </article>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+  )}
+
+  <!-- Gallery（画像が入っているときだけ表示） -->
+  {gallery.length > 0 && (
+  <section class="bg-ink/[0.035]">
+    <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
+      <SectionHead en="Facility" ja="施設・トレーニング風景" />
+      <div class="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
+        {gallery.map((g) => (
+          <figure>
+            <img src={g.image} alt={g.caption ?? `${title}の様子`} class="aspect-[4/3] w-full rounded-xl object-cover" loading="lazy" />
+            {has(g.caption) && <figcaption class="mt-2 text-xs text-ink/60">{g.caption}</figcaption>}
+          </figure>
         ))}
       </div>
     </div>
@@ -219,6 +377,26 @@ const trainers = ((gym as any).trainers ?? [] as Trainer[]).filter((t: Trainer) 
     </div>
   </section>
 
+  <!-- FAQ（回答が入っている質問だけ表示） -->
+  {faqs.length > 0 && (
+  <section class="bg-ink/[0.035]">
+    <div class="mx-auto max-w-4xl px-4 py-20 md:px-6 md:py-28">
+      <SectionHead en="FAQ" ja="よくあるご質問" center />
+      <div class="divide-y divide-line border-y border-line bg-white">
+        {faqs.map((f) => (
+          <details class="group px-6 py-5">
+            <summary class="flex cursor-pointer list-none items-start justify-between gap-4 font-bold text-ink">
+              <span><span class="mr-2 font-en text-teal">Q.</span>{f.q}</span>
+              <span class="mt-0.5 text-teal transition group-open:rotate-45">＋</span>
+            </summary>
+            <p class="mt-3 whitespace-pre-line text-sm leading-relaxed text-ink/70"><span class="mr-2 font-en font-bold text-teal">A.</span>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+  )}
+
   <!-- Info -->
   <section>
     <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
@@ -240,26 +418,6 @@ const trainers = ((gym as any).trainers ?? [] as Trainer[]).filter((t: Trainer) 
       )}
     </div>
   </section>
-
-  <!-- FAQ（回答が入っている質問だけ表示） -->
-  {faqs.length > 0 && (
-  <section class="bg-ink/[0.035]">
-    <div class="mx-auto max-w-4xl px-4 py-20 md:px-6 md:py-28">
-      <SectionHead en="FAQ" ja="よくあるご質問" center />
-      <div class="divide-y divide-line border-y border-line bg-white">
-        {faqs.map((f) => (
-          <details class="group px-6 py-5">
-            <summary class="flex cursor-pointer list-none items-start justify-between gap-4 font-bold text-ink">
-              <span><span class="mr-2 font-en text-teal">Q.</span>{f.q}</span>
-              <span class="mt-0.5 text-teal transition group-open:rotate-45">＋</span>
-            </summary>
-            <p class="mt-3 whitespace-pre-line text-sm leading-relaxed text-ink/70"><span class="mr-2 font-en font-bold text-teal">A.</span>{f.a}</p>
-          </details>
-        ))}
-      </div>
-    </div>
-  </section>
-  )}
 
   <!-- CTA -->
   <section class="bg-slate">
