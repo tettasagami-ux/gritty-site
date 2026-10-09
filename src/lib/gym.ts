@@ -34,3 +34,9 @@ export const minPrice = (plan: any): string => {
     .filter((n) => n > 0);
   return vals.length ? `¥${Math.min(...vals).toLocaleString('ja-JP')}` : '';
 };
+
+/** 3回券の支払いリンク（CMSで設定。空欄は非表示） */
+export const tickets: { junior: string; student: string; general: string; pilates: string } = {
+  junior: '', student: '', general: '', pilates: '', ...(g.tickets ?? {}),
+};
+export const hasTickets = Object.values(tickets).some(has);

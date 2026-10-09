@@ -55,6 +55,16 @@ collections:
           - { label: "紹介文（2〜3行）", name: "lead", widget: "text", required: false }
           - { label: "メイン画像", name: "hero_image", widget: "image", required: false }
           - { label: "予約サイト（Square）のURL", name: "square_url", widget: "string", required: false }
+          - label: "3回券の購入リンク（Squareの支払いリンク）"
+            name: "tickets"
+            widget: "object"
+            required: false
+            hint: "空欄の区分は「購入する」ボタンが表示されません"
+            fields:
+              - { label: "身体評価＋パーソナル 3回券（ジュニア）", name: "junior", widget: "string", required: false }
+              - { label: "身体評価＋パーソナル 3回券（学生）", name: "student", widget: "string", required: false }
+              - { label: "身体評価＋パーソナル 3回券（一般）", name: "general", widget: "string", required: false }
+              - { label: "ピラティス 3回券", name: "pilates", widget: "string", required: false }
           - { label: "お悩みリスト（こんなお悩みはありませんか？）", name: "pains", widget: "list", field: { label: "お悩み", name: "p", widget: "string" }, required: false }
           - label: "特長"
             name: "reasons"

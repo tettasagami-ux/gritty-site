@@ -4,7 +4,8 @@ import SectionHead from '../../../components/SectionHead.astro';
 import GymHeader from '../../../components/GymHeader.astro';
 import GymCta from '../../../components/GymCta.astro';
 import Tbd from '../../../components/Tbd.astro';
-import { g, has, title, squareReady, bookUrl, faqs, flow } from '../../../lib/gym';
+import site from '../../../data/site.json';
+import { g, has, title, squareReady, bookUrl, faqs, flow, tickets, hasTickets } from '../../../lib/gym';
 
 // メニューごとの写真（plans の順番に対応）
 const planImages = [
@@ -111,12 +112,12 @@ const divisions = [
                           </td>
                           {tiered ? (
                             <>
-                              <td class="px-2 py-3 text-right font-bold text-ink"><Tbd value={r.junior} label="料金" /></td>
-                              <td class="px-2 py-3 text-right font-bold text-ink"><Tbd value={r.student} label="料金" /></td>
-                              <td class="py-3 pl-2 text-right font-bold text-ink"><Tbd value={r.general} label="料金" /></td>
+                              <td class="px-2 py-3 text-right align-top font-bold text-ink"><Tbd value={r.junior} label="料金" /><br />{ticket && has(tickets.junior) && <a href={tickets.junior} target="_blank" rel="noopener" class="mt-1.5 inline-block rounded-full bg-teal px-3 py-1 text-[11px] font-bold text-white transition hover:bg-ink">購入する</a>}</td>
+                              <td class="px-2 py-3 text-right align-top font-bold text-ink"><Tbd value={r.student} label="料金" /><br />{ticket && has(tickets.student) && <a href={tickets.student} target="_blank" rel="noopener" class="mt-1.5 inline-block rounded-full bg-teal px-3 py-1 text-[11px] font-bold text-white transition hover:bg-ink">購入する</a>}</td>
+                              <td class="py-3 pl-2 text-right align-top font-bold text-ink"><Tbd value={r.general} label="料金" /><br />{ticket && has(tickets.general) && <a href={tickets.general} target="_blank" rel="noopener" class="mt-1.5 inline-block rounded-full bg-teal px-3 py-1 text-[11px] font-bold text-white transition hover:bg-ink">購入する</a>}</td>
                             </>
                           ) : (
-                            <td class="py-3 pl-2 text-right font-bold text-ink"><Tbd value={r.price} label="料金" /></td>
+                            <td class="py-3 pl-2 text-right align-top font-bold text-ink"><Tbd value={r.price} label="料金" /><br />{ticket && has(tickets.pilates) && <a href={tickets.pilates} target="_blank" rel="noopener" class="mt-1.5 inline-block rounded-full bg-teal px-3 py-1 text-[11px] font-bold text-white transition hover:bg-ink">購入する</a>}</td>
                           )}
                         </tr>
                         );
@@ -147,8 +148,44 @@ const divisions = [
         </div>
       </div>
 
-      <div class="mt-10 text-center">
-        <a href={bookUrl} target="_blank" rel="noopener" class="inline-block rounded-full bg-teal px-10 py-4 font-bold text-white transition hover:bg-ink">{squareReady ? 'メニューを選んで予約する' : 'LINEで予約する'}</a>
+      <!-- ご利用方法を選ぶ -->
+      <div id="how-to-use" class="mt-12 scroll-mt-36">
+        <h3 class="text-center font-display text-2xl font-bold text-ink">ご利用方法を選ぶ</h3>
+        <div class="mt-6 grid gap-5 md:grid-cols-2">
+          <div class="flex flex-col rounded-2xl border border-line bg-white p-7">
+            <p class="font-en text-base italic text-teal">Single</p>
+            <h4 class="mt-1 font-display text-xl font-bold text-ink">1回ずつ利用する</h4>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-ink/65">予約サイトでメニューと日時を選び、お支払いは当日です。はじめての方は「体験30分」がおすすめです。</p>
+            <a href={bookUrl} target="_blank" rel="noopener" class="mt-6 block rounded-full bg-ink py-3.5 text-center font-bold text-white transition hover:bg-teal">{squareReady ? '予約する' : 'LINEで予約する'}</a>
+          </div>
+          <div class="flex flex-col rounded-2xl border-2 border-teal bg-white p-7">
+            <p class="font-en text-base italic text-teal">3 Tickets <span class="ml-1 rounded bg-teal px-1.5 py-0.5 align-middle font-body text-[10px] font-bold not-italic text-white">お得</span></p>
+            <h4 class="mt-1 font-display text-xl font-bold text-ink">3回券を購入する</h4>
+            <p class="mt-2 text-sm leading-relaxed text-ink/65">オンラインで先にお支払い。購入後はそのまま予約サイトで日時をお選びいただけます（有効期限：購入日から3か月）。</p>
+            {hasTickets ? (
+              <div class="mt-5 space-y-4">
+                {(has(tickets.junior) || has(tickets.student) || has(tickets.general)) && (
+                  <div>
+                    <p class="text-xs font-bold text-ink/60">身体評価＋パーソナル 3回券</p>
+                    <div class="mt-2 grid grid-cols-3 gap-2">
+                      {[['ジュニア', tickets.junior], ['学生', tickets.student], ['一般', tickets.general]].filter(([, u]) => has(u)).map(([k, u]) => (
+                        <a href={u} target="_blank" rel="noopener" class="rounded-full bg-teal py-3 text-center text-sm font-bold text-white transition hover:bg-ink">{k}</a>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {has(tickets.pilates) && (
+                  <div>
+                    <p class="text-xs font-bold text-ink/60">ピラティス 3回券</p>
+                    <a href={tickets.pilates} target="_blank" rel="noopener" class="mt-2 block rounded-full bg-teal py-3 text-center text-sm font-bold text-white transition hover:bg-ink">購入する</a>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <a href={site.line_url} target="_blank" rel="noopener" class="mt-6 block rounded-full border border-teal py-3.5 text-center font-bold text-teal transition hover:bg-teal hover:text-white">LINEで購入を相談する</a>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   </section>
