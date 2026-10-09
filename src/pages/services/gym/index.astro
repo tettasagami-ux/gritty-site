@@ -5,12 +5,12 @@ import GymHeader from '../../../components/GymHeader.astro';
 import GymCta from '../../../components/GymCta.astro';
 import Tbd from '../../../components/Tbd.astro';
 import site from '../../../data/site.json';
-import { g, has, title, squareReady, bookUrl, base, pains, reasons, trainers, gallery, flow, minPrice } from '../../../lib/gym';
+import { g, has, title, squareReady, bookUrl, base, pains, reasons, gallery, flow } from '../../../lib/gym';
 
 const concepts = [
   { t: 'まず、身体を知る', d: '運動器エコーや各種テストで、可動域・筋力・姿勢など今の身体の状態を把握します。', img: '/images/gym/eval-echo.webp', alt: '運動器エコーで脚の状態を評価している様子' },
   { t: '一人ひとりに合わせて鍛える', d: 'ピラティス・リハビリ・ストレングスから、目的と状態に合わせてメニューを組み立てます。', img: '/images/gym/train-lunge.webp', alt: 'ダンベルを持ってランジを行うトレーニングの様子' },
-  { t: '再評価で、変化を確かめる', d: '定期的に評価し直し、変化を確認しながらメニューを更新していきます。', img: '/images/gym/eval-echo-squat.webp', alt: 'スクワット姿勢のままエコーで評価している様子' },
+  { t: '再評価で、変化を確かめる', d: '定期的に評価し直し、変化を確認しながらメニューを更新していきます。', img: '/images/gym/checkup.webp', alt: '選手の身体の状態をチェックしている様子' },
 ];
 
 // 特長カードに合わせる写真（reasons の順番に対応）
@@ -38,7 +38,6 @@ const strip = [
   { img: '/images/gym/train-band.webp', alt: 'ベッドに手をついて体幹を安定させるエクササイズ' },
 ];
 
-const t0 = trainers[0];
 const mapSrc = has(g.address) ? `https://maps.google.com/maps?q=${encodeURIComponent(g.address.replace(/^〒\S+\s*/, ''))}&z=16&output=embed` : '';
 const info = [
   { k: '所在地', v: g.address },
@@ -71,10 +70,8 @@ const info = [
           <a href={`${base}menu/`} class="rounded-full border border-white/40 px-8 py-3.5 font-bold text-white transition hover:border-cyan hover:text-cyan">メニュー・料金を見る</a>
         </div>
       </div>
-      <div class="grid grid-cols-[3fr_2fr] gap-3">
-        <img src="/images/gym/hero-trainer.webp" alt="ジムに立つトレーナーの伊藤創" class="row-span-2 h-full w-full rounded-2xl object-cover" loading="eager" />
-        <img src="/images/gym/eval-echo.webp" alt="運動器エコーによる評価の様子" class="aspect-square w-full rounded-2xl object-cover" loading="eager" />
-        <img src="/images/gym/pilates-04.webp" alt="ピラティスのエクササイズ" class="aspect-square w-full rounded-2xl object-cover" loading="eager" />
+      <div>
+        <img src="/images/gym/eval-echo-squat.webp" alt="運動器エコーで評価しながら、スクワット姿勢の動きを確認する様子" class="aspect-[4/3] w-full rounded-2xl object-cover shadow-2xl" loading="eager" />
       </div>
     </div>
   </section>
@@ -163,59 +160,6 @@ const info = [
           </div>
         ))}
       </div>
-    </div>
-  </section>
-
-  <!-- Trainer teaser -->
-  {t0 && (
-  <section>
-    <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 py-12 md:grid-cols-[5fr_7fr] md:px-6 md:py-16">
-      <img src="/images/gym/trainer-standing.webp" alt={`トレーナーの${t0.name}`} class="aspect-[4/5] w-full rounded-2xl object-cover" loading="lazy" />
-      <div>
-        <p class="font-en text-2xl italic tracking-wide text-teal md:text-3xl">Trainer</p>
-        <p class="mt-4 text-sm font-bold text-teal">{t0.role}</p>
-        <h2 class="mt-1 font-display text-3xl font-bold text-ink md:text-4xl">{t0.name}</h2>
-        {has(t0.name_en) && <p class="mt-1 font-en text-lg italic text-ink/50">{t0.name_en}</p>}
-        <p class="mt-6 leading-loose text-ink/75">{t0.intro}</p>
-        {Array.isArray(t0.stats) && (
-          <dl class="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line">
-            {t0.stats.slice(0, 4).map((x: any) => (
-              <div class="flex flex-col-reverse bg-white px-4 py-5 text-center">
-                <dt class="mt-1 text-xs leading-snug text-ink/60">{x.label}</dt>
-                <dd class="font-display text-2xl font-bold text-teal">{x.value}</dd>
-              </div>
-            ))}
-          </dl>
-        )}
-        <a href={`${base}trainer/`} class="mt-8 inline-block rounded-full bg-ink px-8 py-3.5 font-bold text-white transition hover:bg-teal">所属トレーナーを見る →</a>
-      </div>
-    </div>
-  </section>
-  )}
-
-  <!-- Menu teaser -->
-  <section class="bg-ink/[0.035]">
-    <div class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
-      <SectionHead compact en="Menu" ja="メニュー" />
-      <div class="grid gap-6 md:grid-cols-3">
-        {g.plans.map((p: any, i: number) => {
-          const imgs = ['/images/gym/eval-echo-team.webp', '/images/gym/hands-on.webp', '/images/gym/pilates-08.webp'];
-          return (
-          <a href={`${base}menu/#menu-${i + 1}`} class="group overflow-hidden rounded-2xl border border-line bg-white transition hover:-translate-y-1 hover:shadow-lg">
-            <div class="aspect-[4/3] overflow-hidden">
-              <img src={imgs[i] ?? imgs[0]} alt={p.name} class="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
-            </div>
-            <div class="p-6">
-              <p class="font-en text-sm font-bold text-teal">Menu {String(i + 1).padStart(2, '0')}</p>
-              <h3 class="mt-1 font-display text-xl font-bold text-ink">{p.name}</h3>
-              {minPrice(p) && <p class="mt-3 text-ink"><span class="font-display text-2xl font-bold">{minPrice(p)}</span><span class="text-sm text-ink/60">〜（税込）</span></p>}
-              <p class="mt-4 text-sm font-bold text-teal">料金を見る →</p>
-            </div>
-          </a>
-          );
-        })}
-      </div>
-      <p class="mt-6 text-sm text-ink/60">体験・回数券もご用意しています。入会金はかかりません。</p>
     </div>
   </section>
 
