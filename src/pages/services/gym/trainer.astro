@@ -1,0 +1,206 @@
+---
+import Base from '../../../layouts/Base.astro';
+import SectionHead from '../../../components/SectionHead.astro';
+import GymHeader from '../../../components/GymHeader.astro';
+import GymCta from '../../../components/GymCta.astro';
+import { g, has, nz, title, trainers } from '../../../lib/gym';
+
+// 「指導で大切にしていること」に添える写真（approach の順番に対応）
+const approachImages = [
+  { img: '/images/gym/seminar-echo.webp', alt: '運動器エコーで脚の状態を確認しながら説明する様子' },
+  { img: '/images/gym/pilates-06.webp', alt: 'フォームローラーを使ったピラティスのエクササイズ' },
+  { img: '/images/gym/seminar-practice-2.webp', alt: '治療・トレーニングの実技を指導する様子' },
+];
+
+const activityPhotos = [
+  { img: '/images/gym/seminar-lecture.webp', cap: '運動器エコーに関する講義' },
+  { img: '/images/gym/seminar-hall.webp', cap: '指導者・学生向けの講演' },
+  { img: '/images/gym/seminar-practice.webp', cap: '評価・治療の実技指導' },
+  { img: '/images/gym/checkup.webp', cap: '選手のメディカルチェック' },
+  { img: '/images/gym/conference.webp', cap: '学会での発表・参加' },
+  { img: '/images/gym/team-04.webp', cap: 'エコー実習' },
+];
+
+const teamPhotos = [
+  { img: '/images/gym/team-01.webp', alt: '実技講習の参加者との集合写真' },
+  { img: '/images/gym/team-02.webp', alt: '講習会の参加者との集合写真' },
+  { img: '/images/gym/team-03.webp', alt: '講習会の参加者との集合写真' },
+];
+---
+<Base title={`所属トレーナー｜${title}`} description={`${title}の所属トレーナー紹介。理学療法士として病院・大学・チームで経験を積んだトレーナーが、身体評価からトレーニングまでマンツーマンで担当します。`} noindex={!g.published} ownHeader>
+  <GymHeader slot="header" />
+  <!-- Page head -->
+  <section class="relative isolate overflow-hidden bg-ink">
+    <img src="/images/gym/hero-trainer.webp" alt="" class="absolute inset-y-0 right-0 -z-10 h-full w-full object-cover object-[50%_25%] opacity-40 md:w-3/5 md:opacity-100" loading="eager" />
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/90 to-ink/10"></div>
+    <div class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
+      <p class="font-en text-lg italic tracking-wide text-cyan"><a href="/services/gym/" class="hover:underline">{title}</a> / Trainers</p>
+      <h1 class="mt-4 font-display text-4xl font-bold text-white md:text-5xl">所属トレーナー</h1>
+      <p class="mt-6 max-w-md leading-loose text-white/75">
+        病院のリハビリ現場、大学、スポーツチーム。<br />
+        医療とスポーツの両方を知る理学療法士が、<br class="hidden md:block" />あなたの身体に向き合います。
+      </p>
+    </div>
+  </section>
+
+  {trainers.map((t: any) => {
+    const stats = nz(t.stats as any[]).filter((x) => has(x.value));
+    const approach = nz(t.approach as any[]).filter((x) => has(x.title));
+    const timeline = nz(t.timeline as any[]).filter((x) => has(x.text));
+    const teams = nz(t.teams as any[]).filter((x) => has(x.name));
+    const activities = nz(t.activities as string[]).filter(has);
+    const societies = nz(t.societies as string[]).filter(has);
+    const quals = nz(t.qualifications as string[]).filter(has);
+    return (
+    <>
+      <!-- Profile -->
+      <section>
+        <div class="mx-auto grid max-w-6xl items-start gap-10 px-4 py-12 md:grid-cols-[340px_1fr] md:gap-14 md:px-6 md:py-16">
+          {has(t.photo) ? (
+            <img src={t.photo} alt={`${t.name}（${t.role ?? 'トレーナー'}）`} class="aspect-[4/5] w-full max-w-[340px] rounded-2xl object-cover" loading="lazy" />
+          ) : (
+            <div class="flex aspect-[4/5] w-full max-w-[340px] items-center justify-center rounded-2xl bg-ink/[0.06]"><span class="font-en text-lg italic text-ink/30">Photo</span></div>
+          )}
+          <div>
+            <p class="font-en text-2xl italic tracking-wide text-teal md:text-3xl">Profile</p>
+            {has(t.role) && <p class="mt-4 text-sm font-bold text-teal">{t.role}</p>}
+            <h2 class="mt-1.5 font-display text-3xl font-bold text-ink md:text-4xl">{t.name}</h2>
+            {has(t.name_en) && <p class="mt-1 font-en text-lg italic tracking-wide text-ink/50">{t.name_en}</p>}
+            {has(t.intro) && <p class="mt-6 whitespace-pre-line leading-loose text-ink/75">{t.intro}</p>}
+            {has(t.specialty) && (
+              <div class="mt-6 rounded-xl bg-ink/[0.035] p-5">
+                <p class="text-xs font-bold text-teal">得意分野</p>
+                <p class="mt-1.5 text-sm leading-relaxed text-ink">{t.specialty}</p>
+              </div>
+            )}
+            {quals.length > 0 && (
+              <div class="mt-6">
+                <p class="text-xs font-bold text-ink/50">資格・学位</p>
+                <ul class="mt-2 flex flex-wrap gap-2">
+                  {quals.map((q) => <li class="rounded-full border border-teal/40 bg-teal/5 px-3 py-1 text-xs font-medium text-teal">{q}</li>)}
+                </ul>
+              </div>
+            )}
+            {has(t.career) && <p class="mt-5 whitespace-pre-line text-sm leading-relaxed text-ink/60">{t.career}</p>}
+            {has(t.message) && (
+              <blockquote class="mt-6 border-l-2 border-teal pl-5 leading-loose text-ink/80"><p class="whitespace-pre-line">{t.message}</p></blockquote>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <!-- Numbers -->
+      {stats.length > 0 && (
+      <section class="bg-teal">
+        <div class="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-12">
+          <dl class="grid grid-cols-2 gap-y-8 md:grid-cols-4">
+            {stats.map((x) => (
+              <div class="flex flex-col-reverse px-2 text-center">
+                <dt class="mt-1.5 text-xs leading-snug text-white/80 md:text-sm">{x.label}</dt>
+                <dd class="font-display text-3xl font-bold text-white md:text-4xl">{x.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+      )}
+
+      <!-- Approach -->
+      {approach.length > 0 && (
+      <section>
+        <div class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+          <SectionHead compact en="Approach" ja="指導で大切にしていること" />
+          <div class="grid gap-8 md:grid-cols-3">
+            {approach.map((a, i) => (
+              <div>
+                {approachImages[i] && <img src={approachImages[i].img} alt={approachImages[i].alt} class="aspect-[4/3] w-full rounded-2xl object-cover" loading="lazy" />}
+                <p class="mt-5 font-en text-sm font-bold text-teal">{String(i + 1).padStart(2, '0')}</p>
+                <h3 class="mt-1 font-display text-lg font-bold text-ink">{a.title}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-ink/60">{a.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      )}
+
+      <!-- Career & Teams -->
+      {(timeline.length > 0 || teams.length > 0) && (
+      <section class="bg-ink/[0.035]">
+        <div class="mx-auto grid max-w-6xl gap-12 px-4 py-12 md:grid-cols-2 md:px-6 md:py-16">
+          {timeline.length > 0 && (
+            <div>
+              <SectionHead compact en="Career" ja="経歴" />
+              <ol class="border-l border-teal/40">
+                {timeline.map((e) => (
+                  <li class="relative pb-7 pl-6 last:pb-0">
+                    <span class="absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full bg-teal"></span>
+                    <p class="font-en text-base font-bold text-teal">{e.year}</p>
+                    <p class="mt-1 text-sm leading-relaxed text-ink/75">{e.text}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+          {teams.length > 0 && (
+            <div>
+              <SectionHead compact en="Team Support" ja="チームサポート実績" />
+              <ul class="space-y-3">
+                {teams.map((m) => (
+                  <li class="rounded-xl border border-line bg-white p-5">
+                    <p class="text-xs font-medium text-ink/50">{m.period}</p>
+                    <p class="mt-1 font-bold text-ink">{m.name}</p>
+                    {has(m.note) && <p class="mt-1.5 text-sm leading-relaxed text-ink/60">{m.note}</p>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </section>
+      )}
+
+      <!-- Activities -->
+      {(activities.length > 0 || societies.length > 0) && (
+      <section>
+        <div class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+          <SectionHead compact en="Activities" ja="講演・検診・学会活動" />
+          <div class="grid gap-10 md:grid-cols-[5fr_7fr]">
+            <div class="space-y-8">
+              {activities.length > 0 && (
+                <ul class="space-y-3">
+                  {activities.map((a) => (
+                    <li class="flex items-start gap-3 text-sm leading-relaxed text-ink/75"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal"></span>{a}</li>
+                  ))}
+                </ul>
+              )}
+              {societies.length > 0 && (
+                <div>
+                  <p class="text-xs font-bold text-ink/50">所属学会</p>
+                  <ul class="mt-2 flex flex-wrap gap-2">
+                    {societies.map((x) => <li class="rounded-full bg-ink/[0.05] px-3 py-1 text-xs text-ink/70">{x}</li>)}
+                  </ul>
+                </div>
+              )}
+            </div>
+            <div class="grid grid-cols-2 gap-3 md:grid-cols-3">
+              {activityPhotos.map((p) => (
+                <figure>
+                  <img src={p.img} alt={p.cap} class="aspect-[4/3] w-full rounded-xl object-cover" loading="lazy" />
+                  <figcaption class="mt-1.5 text-xs text-ink/55">{p.cap}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+          <div class="mt-10 grid gap-3 md:grid-cols-3">
+            {teamPhotos.map((p) => <img src={p.img} alt={p.alt} class="aspect-[16/10] w-full rounded-xl object-cover" loading="lazy" />)}
+          </div>
+        </div>
+      </section>
+      )}
+    </>
+    );
+  })}
+
+  <GymCta heading="一度、身体を見せてください。" text="今の状態を知ることが、いちばんの近道です。" image="/images/gym/trainer-standing.webp" />
+</Base>

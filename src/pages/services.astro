@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import ContactBand from '../components/ContactBand.astro';
+import gym from '../data/gym.json';
 
 const services = [
   {
@@ -28,22 +29,30 @@ const services = [
     desc: '現場の熱量を伝える映像制作と、チーム・スクールの発信を支えるYouTube運営、イベントの企画運営まで。',
     soon: true,
   },
+  ...(gym.published ? [{
+    href: '/services/gym/',
+    en: 'Performance Gym',
+    ja: 'GRITTY PERFORMANCE',
+    img: '/images/gym/eval-echo-squat.webp',
+    alt: '運動器エコーで評価しながら動きを確認するトレーニングの様子',
+    desc: '広島・LeaDream野球場内のパフォーマンスジム。理学療法士がマンツーマンで、身体評価からトレーニングまで担当します。',
+  }] : []),
 ];
 ---
-<Base title="事業内容" description="GRITTYの3つの事業。スポーツサイエンスサポート、デジタルソリューション、クリエイティブ＆イベント。">
+<Base title="事業内容" description="GRITTYの事業。スポーツサイエンスサポート、デジタルソリューション、クリエイティブ＆イベント、パフォーマンスジム「GRITTY PERFORMANCE」。">
   <section class="border-b border-line">
     <div class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
       <p class="font-en text-xl italic tracking-wide text-teal">Service</p>
       <h1 class="mt-4 font-display text-4xl font-bold text-ink md:text-5xl">事業内容</h1>
       <p class="mt-6 max-w-2xl leading-loose text-ink/70">
-        測定・分析からアプリ開発、映像制作まで。3つの事業をひとつのチームで担うことで、「計測して終わり」ではない一気通貫の伴走を実現します。
+        測定・分析からアプリ開発、映像制作、パフォーマンスジムの運営まで。複数の事業をひとつのチームで担うことで、「計測して終わり」ではない一気通貫の伴走を実現します。
       </p>
     </div>
   </section>
 
   <section>
     <div class="mx-auto max-w-6xl px-4 py-20 md:px-6 md:py-28">
-      <div class="grid gap-8 md:grid-cols-3">
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
         {services.map((s) => s.soon ? (
           <div class="overflow-hidden rounded-2xl border border-line bg-white">
             <div class="flex aspect-[4/3] items-center justify-center bg-slate">

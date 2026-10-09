@@ -1,0 +1,280 @@
+---
+import Base from '../../../layouts/Base.astro';
+import SectionHead from '../../../components/SectionHead.astro';
+import GymHeader from '../../../components/GymHeader.astro';
+import GymCta from '../../../components/GymCta.astro';
+import Tbd from '../../../components/Tbd.astro';
+import site from '../../../data/site.json';
+import { g, has, title, squareReady, bookUrl, base, pains, reasons, trainers, gallery, flow, minPrice } from '../../../lib/gym';
+
+const concepts = [
+  { t: 'まず、身体を知る', d: '運動器エコーや各種テストで、可動域・筋力・姿勢など今の身体の状態を把握します。', img: '/images/gym/eval-echo.webp', alt: '運動器エコーで脚の状態を評価している様子' },
+  { t: '一人ひとりに合わせて鍛える', d: 'ピラティス・リハビリ・ストレングスから、目的と状態に合わせてメニューを組み立てます。', img: '/images/gym/train-lunge.webp', alt: 'ダンベルを持ってランジを行うトレーニングの様子' },
+  { t: '再評価で、変化を確かめる', d: '定期的に評価し直し、変化を確認しながらメニューを更新していきます。', img: '/images/gym/eval-echo-squat.webp', alt: 'スクワット姿勢のままエコーで評価している様子' },
+];
+
+// 特長カードに合わせる写真（reasons の順番に対応）
+const reasonImages = [
+  { img: '/images/gym/hands-on.webp', alt: 'トレーナーが選手の背中に手を添えて動きを指導している様子' },
+  { img: '/images/gym/seminar-echo-2.webp', alt: 'エコー画面を見ながら脚の状態を確認している様子' },
+  { img: '/images/gym/train-kettlebell.webp', alt: 'ケトルベルを使ったトレーニングの様子' },
+  { img: '/images/gym/stadium.webp', alt: '晴れた日の野球場' },
+];
+
+const targets = [
+  { who: '小・中学生', sub: 'Junior', d: '正しい動きの土台づくりと、怪我をしにくい身体づくりを。' },
+  { who: '高校・大学生', sub: 'Student', d: '球速・打球速度アップなど、目標に向けて動きとフィジカルを強化。' },
+  { who: '社会人・一般', sub: 'Adult', d: '競技のパフォーマンス維持から、日常の身体のケア・体力づくりまで。' },
+];
+
+const strip = [
+  { img: '/images/gym/pilates-01.webp', alt: 'フォームローラーを使ったピラティスのエクササイズ' },
+  { img: '/images/gym/pilates-04.webp', alt: '体側を伸ばすピラティスのエクササイズ' },
+  { img: '/images/gym/train-handstand.webp', alt: '逆立ちで体幹をコントロールするトレーニング' },
+  { img: '/images/gym/pilates-02.webp', alt: 'うつ伏せで背中を使うエクササイズ' },
+  { img: '/images/gym/train-stretch.webp', alt: '台を使って股関節を伸ばすストレッチ' },
+  { img: '/images/gym/pilates-cat.webp', alt: '背骨を丸めて動かすエクササイズ' },
+  { img: '/images/gym/pilates-03.webp', alt: 'フォームローラーを支えに片脚でバランスをとるエクササイズ' },
+  { img: '/images/gym/train-band.webp', alt: 'ベッドに手をついて体幹を安定させるエクササイズ' },
+];
+
+const t0 = trainers[0];
+const mapSrc = has(g.address) ? `https://maps.google.com/maps?q=${encodeURIComponent(g.address.replace(/^〒\S+\s*/, ''))}&z=16&output=embed` : '';
+const info = [
+  { k: '所在地', v: g.address },
+  { k: 'アクセス', v: g.access },
+  { k: '営業時間', v: g.hours },
+  { k: '定休日', v: g.closed },
+  { k: '駐車場', v: g.parking },
+  { k: '持ち物・服装', v: g.belongings },
+].filter((r) => has(r.v));
+---
+<Base title={title} description={has(g.lead) ? g.lead : 'GRITTYが運営するパフォーマンスジム。'} noindex={!g.published} ownHeader>
+  <GymHeader slot="header" />
+  <!-- Hero -->
+  <section class="relative isolate overflow-hidden bg-ink">
+    <img src="/images/gym/studio-wide.webp" alt="" class="absolute inset-0 -z-10 h-full w-full object-cover opacity-25" loading="eager" />
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/85 to-ink/30"></div>
+    <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 pb-14 pt-10 md:grid-cols-[6fr_5fr] md:px-6 md:pb-20 md:pt-16">
+      <div>
+        <p class="font-en text-lg italic tracking-wide text-cyan"><a href="/services/" class="hover:underline">Service</a> / {has(g.name_en) ? g.name_en : 'Performance Gym'}</p>
+        <h1 class="mt-4 font-en text-4xl font-semibold tracking-wide text-white md:text-6xl"><Tbd value={g.name} label="ジム名" /></h1>
+        <p class="mt-6 font-display text-2xl font-bold leading-relaxed text-white md:text-3xl"><Tbd value={g.catch} label="キャッチコピー" block /></p>
+        <p class="mt-5 max-w-lg text-sm leading-loose text-white/75 md:text-base"><Tbd value={g.lead} label="紹介文（2〜3行）" block /></p>
+        <ul class="mt-6 flex flex-wrap gap-2 text-xs font-medium text-white/85">
+          {['理学療法士が担当', '運動器エコーで評価', '完全予約制', '駐車場15台'].map((x) => (
+            <li class="rounded-full border border-white/25 px-3 py-1">{x}</li>
+          ))}
+        </ul>
+        <div class="mt-9 flex flex-wrap gap-4">
+          <a href={bookUrl} target="_blank" rel="noopener" class="rounded-full bg-cyan px-8 py-3.5 font-bold text-ink transition hover:bg-white">{squareReady ? '予約する' : 'LINEで予約する'}</a>
+          <a href={`${base}menu/`} class="rounded-full border border-white/40 px-8 py-3.5 font-bold text-white transition hover:border-cyan hover:text-cyan">メニュー・料金を見る</a>
+        </div>
+      </div>
+      <div class="grid grid-cols-[3fr_2fr] gap-3">
+        <img src="/images/gym/hero-trainer.webp" alt="ジムに立つトレーナーの伊藤創" class="row-span-2 h-full w-full rounded-2xl object-cover" loading="eager" />
+        <img src="/images/gym/eval-echo.webp" alt="運動器エコーによる評価の様子" class="aspect-square w-full rounded-2xl object-cover" loading="eager" />
+        <img src="/images/gym/pilates-04.webp" alt="ピラティスのエクササイズ" class="aspect-square w-full rounded-2xl object-cover" loading="eager" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Pains -->
+  {pains.length > 0 && (
+  <section class="bg-ink/[0.035]">
+    <div class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+      <SectionHead compact en="Problem" ja="こんなお悩みはありませんか？" center />
+      <ul class="mx-auto grid max-w-4xl gap-3 sm:grid-cols-2">
+        {pains.map((p) => (
+          <li class="flex items-start gap-3 rounded-xl border border-line bg-white px-5 py-4 text-ink">
+            <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-teal text-[11px] font-bold text-white">✓</span>
+            <span class="text-sm font-medium leading-relaxed md:text-base">{p}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-8 text-center font-display text-lg font-bold leading-relaxed text-ink md:text-xl">その悩み、まずは<span class="text-teal">身体を正しく知ること</span>から。</p>
+    </div>
+  </section>
+  )}
+
+  <!-- Concept -->
+  <section>
+    <div class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+      <SectionHead compact en="Concept" ja="評価 → トレーニング → 再評価。" />
+      <div class="grid gap-8 md:grid-cols-3">
+        {concepts.map((c, i) => (
+          <div>
+            <div class="relative overflow-hidden rounded-2xl">
+              <img src={c.img} alt={c.alt} class="aspect-[4/3] w-full object-cover" loading="lazy" />
+              <span class="absolute left-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-teal font-en text-sm font-bold text-white">{String(i + 1).padStart(2, '0')}</span>
+            </div>
+            <h3 class="mt-5 font-display text-lg font-bold text-ink">{c.t}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/60">{c.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  {reasons.length > 0 && (
+  <section class="bg-slate">
+    <div class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+      <SectionHead compact en="Features" ja={`${title}の特長`} light />
+      <div class="grid gap-6 md:grid-cols-2">
+        {reasons.map((r, i) => (
+          <div class="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04]">
+            {reasonImages[i] && <img src={reasonImages[i].img} alt={reasonImages[i].alt} class="aspect-[16/9] w-full object-cover" loading="lazy" />}
+            <div class="p-7">
+              <p class="font-en text-3xl italic text-cyan">{String(i + 1).padStart(2, '0')}</p>
+              <h3 class="mt-2 font-display text-xl font-bold text-white">{r.title}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-white/70">{r.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  )}
+
+  <!-- Training strip -->
+  <section>
+    <div class="mx-auto max-w-6xl px-4 pt-12 md:px-6 md:pt-16">
+      <SectionHead compact en="Training" ja="ピラティスで、動きの土台から整える。" />
+      <p class="-mt-4 mb-8 max-w-2xl text-sm leading-loose text-ink/65 md:text-base">フォームローラーや自重を使い、背骨・股関節・肩まわりを「自分でコントロールできる」状態へ。身体の使い方が変わると、パフォーマンスも怪我のリスクも変わります。</p>
+    </div>
+    <div class="flex snap-x gap-3 overflow-x-auto px-4 pb-12 md:px-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] md:pb-16">
+      {strip.map((s) => (
+        <img src={s.img} alt={s.alt} class="h-56 w-auto shrink-0 snap-start rounded-xl object-cover md:h-72" loading="lazy" />
+      ))}
+    </div>
+  </section>
+
+  <!-- Target -->
+  <section class="bg-ink/[0.035]">
+    <div class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+      <SectionHead compact en="For" ja="小学生から社会人まで。" center />
+      <div class="grid gap-4 md:grid-cols-3 md:gap-6">
+        {targets.map((t) => (
+          <div class="rounded-2xl border border-line bg-white p-7">
+            <p class="font-en text-base italic text-teal">{t.sub}</p>
+            <h3 class="mt-1 font-display text-xl font-bold text-ink">{t.who}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-ink/60">{t.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Trainer teaser -->
+  {t0 && (
+  <section>
+    <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 py-12 md:grid-cols-[5fr_7fr] md:px-6 md:py-16">
+      <img src="/images/gym/trainer-standing.webp" alt={`トレーナーの${t0.name}`} class="aspect-[4/5] w-full rounded-2xl object-cover" loading="lazy" />
+      <div>
+        <p class="font-en text-2xl italic tracking-wide text-teal md:text-3xl">Trainer</p>
+        <p class="mt-4 text-sm font-bold text-teal">{t0.role}</p>
+        <h2 class="mt-1 font-display text-3xl font-bold text-ink md:text-4xl">{t0.name}</h2>
+        {has(t0.name_en) && <p class="mt-1 font-en text-lg italic text-ink/50">{t0.name_en}</p>}
+        <p class="mt-6 leading-loose text-ink/75">{t0.intro}</p>
+        {Array.isArray(t0.stats) && (
+          <dl class="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line">
+            {t0.stats.slice(0, 4).map((x: any) => (
+              <div class="flex flex-col-reverse bg-white px-4 py-5 text-center">
+                <dt class="mt-1 text-xs leading-snug text-ink/60">{x.label}</dt>
+                <dd class="font-display text-2xl font-bold text-teal">{x.value}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
+        <a href={`${base}trainer/`} class="mt-8 inline-block rounded-full bg-ink px-8 py-3.5 font-bold text-white transition hover:bg-teal">所属トレーナーを見る →</a>
+      </div>
+    </div>
+  </section>
+  )}
+
+  <!-- Menu teaser -->
+  <section class="bg-ink/[0.035]">
+    <div class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+      <SectionHead compact en="Menu" ja="メニュー" />
+      <div class="grid gap-6 md:grid-cols-3">
+        {g.plans.map((p: any, i: number) => {
+          const imgs = ['/images/gym/eval-echo-team.webp', '/images/gym/hands-on.webp', '/images/gym/pilates-08.webp'];
+          return (
+          <a href={`${base}menu/#menu-${i + 1}`} class="group overflow-hidden rounded-2xl border border-line bg-white transition hover:-translate-y-1 hover:shadow-lg">
+            <div class="aspect-[4/3] overflow-hidden">
+              <img src={imgs[i] ?? imgs[0]} alt={p.name} class="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
+            </div>
+            <div class="p-6">
+              <p class="font-en text-sm font-bold text-teal">Menu {String(i + 1).padStart(2, '0')}</p>
+              <h3 class="mt-1 font-display text-xl font-bold text-ink">{p.name}</h3>
+              {minPrice(p) && <p class="mt-3 text-ink"><span class="font-display text-2xl font-bold">{minPrice(p)}</span><span class="text-sm text-ink/60">〜（税込）</span></p>}
+              <p class="mt-4 text-sm font-bold text-teal">料金を見る →</p>
+            </div>
+          </a>
+          );
+        })}
+      </div>
+      <p class="mt-6 text-sm text-ink/60">体験・回数券もご用意しています。入会金はかかりません。</p>
+    </div>
+  </section>
+
+  <!-- Flow -->
+  <section class="bg-teal">
+    <div class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+      <SectionHead compact en="Flow" ja="ご予約からの流れ" center light />
+      <ol class="mx-auto grid max-w-5xl gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        {flow.map((s) => (
+          <li>
+            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-white font-en text-sm font-bold text-teal">{s.no}</span>
+            <h3 class="mt-3.5 font-display text-lg font-bold text-white">{s.ja}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-white/75">{s.desc}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Gallery（CMSで追加した写真） -->
+  {gallery.length > 0 && (
+  <section>
+    <div class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+      <SectionHead compact en="Gallery" ja="施設・トレーニング風景" />
+      <div class="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
+        {gallery.map((x) => (
+          <figure>
+            <img src={x.image} alt={x.caption ?? `${title}の様子`} class="aspect-[4/3] w-full rounded-xl object-cover" loading="lazy" />
+            {has(x.caption) && <figcaption class="mt-2 text-xs text-ink/60">{x.caption}</figcaption>}
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+  )}
+
+  <!-- Access -->
+  <section>
+    <div class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+      <SectionHead compact en="Access" ja="アクセス・施設情報" />
+      <div class="grid gap-8 md:grid-cols-2">
+        <dl class="divide-y divide-line border-y border-line">
+          {info.map((r) => (
+            <div class="grid gap-1 py-4 sm:grid-cols-[120px_1fr] sm:gap-4">
+              <dt class="text-sm font-bold text-ink">{r.k}</dt>
+              <dd class="text-sm leading-relaxed text-ink/70">{r.v}</dd>
+            </div>
+          ))}
+          <div class="grid gap-1 py-4 sm:grid-cols-[120px_1fr] sm:gap-4">
+            <dt class="text-sm font-bold text-ink">運営</dt>
+            <dd class="text-sm leading-relaxed text-ink/70">{site.company_name}</dd>
+          </div>
+        </dl>
+        {mapSrc && (
+          <iframe src={mapSrc} title={`${title}の地図`} class="aspect-[4/3] w-full rounded-2xl border border-line" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <GymCta />
+</Base>

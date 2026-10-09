@@ -7,9 +7,11 @@ interface Props {
   title?: string;
   description?: string;
   noindex?: boolean;
+  /** true のときサイト共通ヘッダーを出さない（ページ側で専用ヘッダーを置く） */
+  ownHeader?: boolean;
 }
 
-const { title, description, noindex = false } = Astro.props;
+const { title, description, noindex = false, ownHeader = false } = Astro.props;
 const pageTitle = title ? `${title} | GRITTY株式会社` : 'GRITTY株式会社 | 現場の感覚を、科学の裏付けへ。';
 const pageDesc = description ?? 'GRITTY株式会社は、野球を中心としたスポーツデータ分析・フィジカル測定・コンディション管理、アプリ開発、動画制作を行う会社です。測定して終わりではなく、選手の成長に伴走します。';
 ---
@@ -45,7 +47,7 @@ const pageDesc = description ?? 'GRITTY株式会社は、野球を中心とし�
 </head>
 <body class="font-body text-ink antialiased">
   <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-cyan focus:px-4 focus:py-2 focus:text-ink">本文へスキップ</a>
-  <Header />
+  {ownHeader ? <slot name="header" /> : <Header />}
   <main id="main">
     <slot />
   </main>

@@ -1,9 +1,7 @@
 ---
-import gym from '../data/gym.json';
 const nav = [
   { href: '/', ja: 'ホーム' },
   { href: '/services/', ja: '事業内容' },
-  ...(gym.published ? [{ href: '/gym/', ja: 'ジム' }] : []),
   { href: '/company/', ja: '会社概要' },
   { href: '/news/', ja: 'ニュース' },
 ];
@@ -18,7 +16,7 @@ const path = Astro.url.pathname;
     <nav class="hidden items-center gap-8 md:flex" aria-label="メインナビゲーション">
       {nav.map((n) => (
         <a href={n.href}
-           class={`text-[15px] font-medium transition hover:text-teal ${path === n.href ? 'text-teal' : 'text-ink'}`}>
+           class={`text-[15px] font-medium transition hover:text-teal ${(n.href === '/' ? path === '/' : path.startsWith(n.href)) ? 'text-teal' : 'text-ink'}`}>
           {n.ja}
         </a>
       ))}

@@ -1,0 +1,193 @@
+---
+import Base from '../../../layouts/Base.astro';
+import SectionHead from '../../../components/SectionHead.astro';
+import GymHeader from '../../../components/GymHeader.astro';
+import GymCta from '../../../components/GymCta.astro';
+import Tbd from '../../../components/Tbd.astro';
+import { g, has, title, squareReady, bookUrl, faqs, flow } from '../../../lib/gym';
+
+// メニューごとの写真（plans の順番に対応）
+const planImages = [
+  [
+    { img: '/images/gym/eval-echo.webp', alt: '運動器エコーで脚の状態を評価している様子' },
+    { img: '/images/gym/eval-echo-team.webp', alt: 'エコー画面を見ながら動きを確認する様子' },
+  ],
+  [
+    { img: '/images/gym/hands-on.webp', alt: 'トレーナーが手を添えて動きを指導する様子' },
+    { img: '/images/gym/train-lunge.webp', alt: 'ダンベルを持ったランジのトレーニング' },
+  ],
+  [
+    { img: '/images/gym/pilates-01.webp', alt: 'フォームローラーを使ったピラティス' },
+    { img: '/images/gym/pilates-05.webp', alt: '四つ這いで行うピラティスのエクササイズ' },
+  ],
+];
+
+const firstSteps = [
+  { t: '初めての方', d: '「体験30分」で、身体のチェックとトレーニングを気軽に試せます。体験料金は初回のみです。' },
+  { t: '痛みや違和感がある方', d: 'まずは「身体評価」で原因を探るところから。結果をもとに、トレーニングの方針を一緒に決めます。' },
+  { t: '続けて取り組みたい方', d: '定期的に通う方は「3回券」がお得です。有効期限は購入日から3か月です。' },
+];
+
+const divisions = [
+  { k: 'ジュニア', v: '中学生以下' },
+  { k: '学生', v: '高校生・大学生・専門学生' },
+  { k: '一般', v: '社会人・上記以外の方' },
+];
+---
+<Base title={`メニュー・料金｜${title}`} description={`${title}のメニューと料金。身体評価・パーソナルトレーニング・パーソナルピラティス。体験・回数券あり、入会金なし。`} noindex={!g.published} ownHeader>
+  <GymHeader slot="header" />
+  <!-- Page head -->
+  <section class="relative isolate overflow-hidden bg-ink">
+    <img src="/images/gym/studio.webp" alt="" class="absolute inset-0 -z-10 h-full w-full object-cover opacity-30" loading="eager" />
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/85 to-ink/40"></div>
+    <div class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
+      <p class="font-en text-lg italic tracking-wide text-cyan"><a href="/services/gym/" class="hover:underline">{title}</a> / Menu &amp; Price</p>
+      <h1 class="mt-4 font-display text-4xl font-bold text-white md:text-5xl">メニュー・料金</h1>
+      <p class="mt-6 max-w-xl leading-loose text-white/75">すべてマンツーマン・完全予約制です。入会金や月会費はなく、必要なときに必要な分だけご利用いただけます。</p>
+      <ul class="mt-7 flex flex-wrap gap-2 text-xs font-medium text-white/85">
+        {['入会金なし', '表示はすべて税込', '体験あり', '3回券あり'].map((x) => <li class="rounded-full border border-white/25 px-3 py-1">{x}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- How to choose -->
+  <section>
+    <div class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+      <SectionHead compact en="First Step" ja="はじめての方へ" />
+      <div class="grid gap-4 md:grid-cols-3 md:gap-6">
+        {firstSteps.map((s, i) => (
+          <div class="rounded-2xl border border-line bg-white p-7">
+            <p class="font-en text-3xl italic text-teal">{String(i + 1).padStart(2, '0')}</p>
+            <h3 class="mt-2 font-display text-lg font-bold text-ink">{s.t}</h3>
+            <p class="mt-2.5 text-sm leading-relaxed text-ink/65">{s.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Plans -->
+  <section class="bg-ink/[0.035]">
+    <div class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+      <SectionHead compact en="Menu & Price" ja="料金表" />
+      <div class="space-y-8">
+        {g.plans.map((p: any, i: number) => {
+          const tiered = p.rows.some((r: any) => has(r.junior) || has(r.student) || has(r.general));
+          const imgs = planImages[i] ?? [];
+          return (
+          <article id={`menu-${i + 1}`} class="scroll-mt-36 overflow-hidden rounded-2xl border border-line bg-white">
+            <div class="grid md:grid-cols-[5fr_7fr]">
+              <div class="grid grid-cols-2 gap-1 bg-line md:grid-cols-1">
+                {imgs.map((m) => <img src={m.img} alt={m.alt} class="aspect-[4/3] h-full w-full object-cover md:aspect-auto md:max-h-56" loading="lazy" />)}
+              </div>
+              <div class="p-7 md:p-9">
+                <p class="font-en text-sm font-bold text-teal">Menu {String(i + 1).padStart(2, '0')}</p>
+                <h2 class="mt-1 font-display text-2xl font-bold text-ink">{p.name}</h2>
+                <p class="mt-3 text-sm leading-relaxed text-ink/65"><Tbd value={p.detail} label="内容" block optional /></p>
+                <div class="mt-6 overflow-x-auto">
+                  <table class="w-full min-w-[300px] text-sm">
+                    <thead>
+                      <tr class="border-b border-ink/20 text-left text-xs text-ink/50">
+                        <th class="py-2 pr-3 font-medium">内容</th>
+                        {tiered ? (
+                          <>
+                            <th class="px-2 py-2 text-right font-medium">ジュニア</th>
+                            <th class="px-2 py-2 text-right font-medium">学生</th>
+                            <th class="py-2 pl-2 text-right font-medium">一般</th>
+                          </>
+                        ) : (
+                          <th class="py-2 pl-2 text-right font-medium">料金</th>
+                        )}
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-line">
+                      {p.rows.map((r: any) => {
+                        const ticket = /回券/.test(r.label);
+                        return (
+                        <tr class={ticket ? 'bg-teal/[0.06]' : ''}>
+                          <td class="py-3 pr-3 font-medium text-ink">
+                            {ticket && <span class="mr-1.5 rounded bg-teal px-1.5 py-0.5 text-[10px] font-bold text-white">お得</span>}
+                            {r.label}
+                          </td>
+                          {tiered ? (
+                            <>
+                              <td class="px-2 py-3 text-right font-bold text-ink"><Tbd value={r.junior} label="料金" /></td>
+                              <td class="px-2 py-3 text-right font-bold text-ink"><Tbd value={r.student} label="料金" /></td>
+                              <td class="py-3 pl-2 text-right font-bold text-ink"><Tbd value={r.general} label="料金" /></td>
+                            </>
+                          ) : (
+                            <td class="py-3 pl-2 text-right font-bold text-ink"><Tbd value={r.price} label="料金" /></td>
+                          )}
+                        </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </article>
+          );
+        })}
+      </div>
+
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+        <div class="rounded-2xl border border-line bg-white p-6">
+          <p class="text-sm font-bold text-ink">料金区分</p>
+          <dl class="mt-3 divide-y divide-line text-sm">
+            {divisions.map((d) => (
+              <div class="flex justify-between gap-4 py-2.5"><dt class="font-medium text-ink">{d.k}</dt><dd class="text-ink/65">{d.v}</dd></div>
+            ))}
+          </dl>
+        </div>
+        <div class="rounded-2xl border border-line bg-white p-6">
+          <p class="text-sm font-bold text-ink">ご利用にあたって</p>
+          <p class="mt-3 text-sm leading-relaxed text-ink/65"><Tbd value={g.fees_note} label="入会金・税込/税抜・支払い方法などの注記" block optional /></p>
+          <p class="mt-2 text-sm leading-relaxed text-ink/65">体験料金は初回のみの適用です。</p>
+        </div>
+      </div>
+
+      <div class="mt-10 text-center">
+        <a href={bookUrl} target="_blank" rel="noopener" class="inline-block rounded-full bg-teal px-10 py-4 font-bold text-white transition hover:bg-ink">{squareReady ? 'メニューを選んで予約する' : 'LINEで予約する'}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flow -->
+  <section class="bg-teal">
+    <div class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+      <SectionHead compact en="Flow" ja="ご予約からの流れ" center light />
+      <ol class="mx-auto grid max-w-5xl gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        {flow.map((s) => (
+          <li>
+            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-white font-en text-sm font-bold text-teal">{s.no}</span>
+            <h3 class="mt-3.5 font-display text-lg font-bold text-white">{s.ja}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-white/75">{s.desc}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  {faqs.length > 0 && (
+  <section>
+    <div class="mx-auto max-w-4xl px-4 py-12 md:px-6 md:py-16">
+      <SectionHead compact en="FAQ" ja="よくあるご質問" center />
+      <div class="divide-y divide-line border-y border-line bg-white">
+        {faqs.map((f) => (
+          <details class="group px-6 py-5">
+            <summary class="flex cursor-pointer list-none items-start justify-between gap-4 font-bold text-ink">
+              <span><span class="mr-2 font-en text-teal">Q.</span>{f.q}</span>
+              <span class="mt-0.5 text-teal transition group-open:rotate-45">＋</span>
+            </summary>
+            <p class="mt-3 whitespace-pre-line text-sm leading-relaxed text-ink/70"><span class="mr-2 font-en font-bold text-teal">A.</span>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+  )}
+
+  <GymCta image="/images/gym/eval-echo-team.webp" />
+</Base>

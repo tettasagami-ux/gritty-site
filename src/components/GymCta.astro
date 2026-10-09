@@ -1,0 +1,22 @@
+---
+import site from '../data/site.json';
+import { bookUrl, squareReady } from '../lib/gym';
+interface Props { heading?: string; text?: string; image?: string }
+const { heading = 'まずは、身体を知るところから。', text = '完全予約制のマンツーマンで、一人ひとりに向き合います。', image = '/images/gym/studio-wide.webp' } = Astro.props;
+---
+<section class="relative isolate overflow-hidden bg-ink">
+  <img src={image} alt="" class="absolute inset-0 -z-10 h-full w-full object-cover opacity-30" loading="lazy" />
+  <div class="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/80 to-ink/40"></div>
+  <div class="mx-auto max-w-6xl px-4 py-16 text-center md:px-6 md:py-24">
+    <p class="font-en text-2xl italic tracking-wide text-cyan">Reservation</p>
+    <h2 class="mt-3 font-display text-3xl font-bold text-white md:text-4xl">{heading}</h2>
+    <p class="mx-auto mt-5 max-w-2xl leading-relaxed text-white/75">
+      {text}<br class="hidden md:block" />
+      {squareReady ? 'ご予約は予約サイトから、ご質問は公式LINEからお気軽にどうぞ。' : 'ご予約・ご質問は、公式LINEからお気軽にどうぞ。'}
+    </p>
+    <div class="mt-9 flex flex-wrap justify-center gap-4">
+      <a href={bookUrl} target="_blank" rel="noopener" class="rounded-full bg-cyan px-8 py-3.5 font-bold text-ink transition hover:bg-white">{squareReady ? '予約する' : 'LINEで予約する'}</a>
+      <a href={site.line_url} target="_blank" rel="noopener" class="rounded-full border border-white/40 px-8 py-3.5 font-bold text-white transition hover:border-cyan hover:text-cyan">LINEで相談する</a>
+    </div>
+  </div>
+</section>

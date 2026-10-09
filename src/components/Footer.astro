@@ -1,6 +1,5 @@
 ---
 import site from '../data/site.json';
-import gym from '../data/gym.json';
 const year = new Date().getFullYear();
 ---
 <footer class="bg-ink text-white">
@@ -20,7 +19,6 @@ const year = new Date().getFullYear();
         <div class="flex flex-col gap-3">
           <a href="/" class="text-white/80 hover:text-cyan">ホーム</a>
           <a href="/services/" class="text-white/80 hover:text-cyan">事業内容</a>
-          {gym.published && <a href="/gym/" class="text-white/80 hover:text-cyan">ジム</a>}
           <a href="/company/" class="text-white/80 hover:text-cyan">会社概要</a>
         </div>
         <div class="flex flex-col gap-3">
