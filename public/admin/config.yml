@@ -61,7 +61,7 @@ collections:
             required: false
             hint: "空欄の区分は「購入する」ボタンが表示されません"
             fields:
-              - { label: "身体評価＋パーソナル 3回券（ジュニア）", name: "junior", widget: "string", required: false }
+              - { label: "身体評価＋パーソナル 3回券（ジュニア）", name: "junior", widget: "string", required: false, hint: "設定がない場合は「-」" }
               - { label: "身体評価＋パーソナル 3回券（学生）", name: "student", widget: "string", required: false }
               - { label: "身体評価＋パーソナル 3回券（一般）", name: "general", widget: "string", required: false }
               - { label: "ピラティス 3回券", name: "pilates", widget: "string", required: false }
@@ -85,7 +85,9 @@ collections:
             widget: "list"
             fields:
               - { label: "メニュー名", name: "name", widget: "string" }
-              - { label: "説明", name: "detail", widget: "text", required: false }
+              - { label: "キャッチコピー", name: "catch", widget: "string", required: false }
+              - { label: "サービス内容", name: "detail", widget: "text", required: false }
+              - { label: "期待される効果", name: "effects", widget: "list", field: { label: "効果", name: "e", widget: "string" }, required: false }
               - label: "料金表（時間ごと）"
                 name: "rows"
                 widget: "list"
