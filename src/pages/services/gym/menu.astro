@@ -5,7 +5,7 @@ import GymHeader from '../../../components/GymHeader.astro';
 import GymCta from '../../../components/GymCta.astro';
 import Tbd from '../../../components/Tbd.astro';
 import site from '../../../data/site.json';
-import { g, has, title, squareReady, bookUrl, faqs, flow, tickets, hasTickets } from '../../../lib/gym';
+import { g, has, title, squareReady, bookUrl, faqs, flow, tickets } from '../../../lib/gym';
 
 // メニューごとの写真（plans の順番に対応）
 const planImages = [
@@ -14,14 +14,18 @@ const planImages = [
     { img: '/images/gym/eval-echo-team.webp', alt: 'エコー画面を見ながら動きを確認する様子' },
   ],
   [
-    { img: '/images/gym/hands-on.webp', alt: 'トレーナーが手を添えて動きを指導する様子' },
-    { img: '/images/gym/train-lunge.webp', alt: 'ダンベルを持ったランジのトレーニング' },
+    { img: '/images/gym/pt-medball-03.webp', alt: 'メディシンボールを使ったトレーニングを指導する様子' },
+    { img: '/images/gym/pt-lunge-assist.webp', alt: 'トレーナーが身体を支えながらランジ動作を指導する様子' },
   ],
   [
+    { img: '/images/gym/pt-roller-02.webp', alt: 'フォームローラーを背中に乗せて体幹をコントロールするエクササイズ' },
     { img: '/images/gym/pilates-01.webp', alt: 'フォームローラーを使ったピラティス' },
-    { img: '/images/gym/pilates-05.webp', alt: '四つ這いで行うピラティスのエクササイズ' },
   ],
 ];
+
+const ticketRow = (i: number) => (g.plans[i]?.rows ?? []).find((r: any) => /回券/.test(r.label));
+const ptTicket = ticketRow(1);
+const plTicket = ticketRow(2);
 
 const firstSteps = [
   { t: '初めての方', d: '「体験30分」で、身体のチェックとトレーニングを気軽に試せます。体験料金は初回のみです。' },
@@ -178,28 +182,35 @@ const divisions = [
             <p class="font-en text-base italic text-teal">3 Tickets <span class="ml-1 rounded bg-teal px-1.5 py-0.5 align-middle font-body text-[10px] font-bold not-italic text-white">お得</span></p>
             <h4 class="mt-1 font-display text-xl font-bold text-ink">3回券を購入する</h4>
             <p class="mt-2 text-sm leading-relaxed text-ink/65">オンラインで先にお支払い。購入後はそのまま予約サイトで日時をお選びいただけます（有効期限：購入日から3か月）。</p>
-            {hasTickets ? (
-              <div class="mt-5 space-y-4">
-                {(has(tickets.junior) || has(tickets.student) || has(tickets.general)) && (
-                  <div>
-                    <p class="text-xs font-bold text-ink/60">身体評価＋パーソナル 3回券</p>
-                    <div class="mt-2 grid grid-cols-3 gap-2">
-                      {[['ジュニア', tickets.junior], ['学生', tickets.student], ['一般', tickets.general]].filter(([, u]) => has(u)).map(([k, u]) => (
-                        <a href={u} target="_blank" rel="noopener" class="rounded-full bg-teal py-3 text-center text-sm font-bold text-white transition hover:bg-ink">{k}</a>
-                      ))}
-                    </div>
+            <div class="mt-5 space-y-5">
+              {ptTicket && (
+                <div>
+                  <p class="text-xs font-bold text-ink/60">身体評価＋パーソナル 3回券</p>
+                  <div class="mt-2 grid grid-cols-3 gap-2">
+                    {[['ジュニア', ptTicket.junior, tickets.junior], ['学生', ptTicket.student, tickets.student], ['一般', ptTicket.general, tickets.general]].map(([k, price, u]) => (
+                      has(u) ? (
+                        <a href={u} target="_blank" rel="noopener" class="rounded-2xl bg-teal px-2 py-2.5 text-center text-white transition hover:bg-ink">
+                          <span class="block text-xs font-bold">{k}</span><span class="block text-sm font-bold">{price}</span>
+                        </a>
+                      ) : (
+                        <a href={site.line_url} target="_blank" rel="noopener" class="rounded-2xl border border-teal px-2 py-2.5 text-center text-teal transition hover:bg-teal hover:text-white">
+                          <span class="block text-xs font-bold">{k}</span><span class="block text-sm font-bold">{price}</span>
+                        </a>
+                      )
+                    ))}
                   </div>
-                )}
-                {has(tickets.pilates) && (
-                  <div>
-                    <p class="text-xs font-bold text-ink/60">ピラティス 3回券</p>
-                    <a href={tickets.pilates} target="_blank" rel="noopener" class="mt-2 block rounded-full bg-teal py-3 text-center text-sm font-bold text-white transition hover:bg-ink">購入する</a>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <a href={site.line_url} target="_blank" rel="noopener" class="mt-6 block rounded-full border border-teal py-3.5 text-center font-bold text-teal transition hover:bg-teal hover:text-white">LINEで購入を相談する</a>
-            )}
+                </div>
+              )}
+              {plTicket && (
+                <div>
+                  <p class="text-xs font-bold text-ink/60">ピラティス 3回券（60分×3回）</p>
+                  <a href={has(tickets.pilates) ? tickets.pilates : site.line_url} target="_blank" rel="noopener" class={`mt-2 block rounded-full py-3 text-center text-sm font-bold transition ${has(tickets.pilates) ? 'bg-teal text-white hover:bg-ink' : 'border border-teal text-teal hover:bg-teal hover:text-white'}`}>{plTicket.price}　購入する</a>
+                </div>
+              )}
+              {!(has(tickets.junior) && has(tickets.student) && has(tickets.general) && has(tickets.pilates)) && (
+                <p class="text-xs leading-relaxed text-ink/50">枠線のボタンは公式LINEからご購入を承ります。</p>
+              )}
+            </div>
           </div>
         </div>
       </div>
