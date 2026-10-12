@@ -102,9 +102,9 @@
   "closed": "",
   "square_url": "https://book.squareup.com/appointments/mqifsunxqa4jh7/location/LAQ3XWD4FVTWG/services",
   "tickets": {
-    "junior": "",
-    "student": "",
-    "general": "",
+    "junior": "https://square.link/u/aVkrGhWr",
+    "student": "https://square.link/u/b2nfr9q3",
+    "general": "https://square.link/u/0UuZC9hi",
     "pilates": "https://square.link/u/7deLYj04"
   },
   "equipment": "",
