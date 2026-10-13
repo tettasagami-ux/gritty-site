@@ -22,6 +22,14 @@ const services = [
     alt: '屋内練習場でハイスピードカメラを設置し打撃を測定する様子',
     desc: 'Rapsodoと1000fpsハイスピードカメラで球質・フォーム・フィジカルを数値化。感覚とデータを結び、選手の成長に伴走します。',
   },
+  ...(gym.published ? [{
+    href: '/services/gym/',
+    en: 'Performance Gym',
+    ja: 'GRITTY PERFORMANCE',
+    img: '/images/gym/home-gym-card.webp',
+    alt: '理学療法士が選手の身体を評価し、参加者に説明している様子',
+    desc: '広島・LeaDream野球場内のパフォーマンスジム。理学療法士がマンツーマンで、身体評価からトレーニングまで担当します。',
+  }] : []),
   {
     href: '/services/digital/',
     en: 'Digital Solutions',
@@ -39,14 +47,6 @@ const services = [
     desc: '現場の熱量を伝える映像制作と、チーム・スクールの発信を支えるYouTube運営、イベントの企画運営まで。',
     soon: true,
   },
-  ...(gym.published ? [{
-    href: '/services/gym/',
-    en: 'Performance Gym',
-    ja: 'GRITTY PERFORMANCE',
-    img: '/images/gym/home-gym-card.webp',
-    alt: '理学療法士が選手の身体を評価し、参加者に説明している様子',
-    desc: '広島・LeaDream野球場内のパフォーマンスジム。理学療法士がマンツーマンで、身体評価からトレーニングまで担当します。',
-  }] : []),
 ];
 
 const gymPoints = [

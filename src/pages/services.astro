@@ -12,6 +12,14 @@ const services = [
     alt: '屋内練習場でハイスピードカメラを設置し打撃を測定する様子',
     desc: 'Rapsodo・1000fpsハイスピードカメラ・フィジカル測定・専用アプリで、選手の成長に伴走するスポーツ科学サポート。',
   },
+  ...(gym.published ? [{
+    href: '/services/gym/',
+    en: 'Performance Gym',
+    ja: 'GRITTY PERFORMANCE',
+    img: '/images/gym/eval-echo-squat.webp',
+    alt: '運動器エコーで評価しながら動きを確認するトレーニングの様子',
+    desc: '広島・LeaDream野球場内のパフォーマンスジム。理学療法士がマンツーマンで、身体評価からトレーニングまで担当します。',
+  }] : []),
   {
     href: '/services/digital/',
     en: 'Digital Solutions',
@@ -29,14 +37,6 @@ const services = [
     desc: '現場の熱量を伝える映像制作と、チーム・スクールの発信を支えるYouTube運営、イベントの企画運営まで。',
     soon: true,
   },
-  ...(gym.published ? [{
-    href: '/services/gym/',
-    en: 'Performance Gym',
-    ja: 'GRITTY PERFORMANCE',
-    img: '/images/gym/eval-echo-squat.webp',
-    alt: '運動器エコーで評価しながら動きを確認するトレーニングの様子',
-    desc: '広島・LeaDream野球場内のパフォーマンスジム。理学療法士がマンツーマンで、身体評価からトレーニングまで担当します。',
-  }] : []),
 ];
 ---
 <Base title="事業内容" description="GRITTYの事業。スポーツサイエンスサポート、デジタルソリューション、クリエイティブ＆イベント、パフォーマンスジム「GRITTY PERFORMANCE」。">
