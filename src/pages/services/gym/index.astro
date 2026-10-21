@@ -35,6 +35,26 @@ const strip = [
 ];
 
 const mapSrc = has(g.address) ? `https://maps.google.com/maps?q=${encodeURIComponent(g.address.replace(/^〒\S+\s*/, ''))}&z=16&output=embed` : '';
+const gymLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HealthClub',
+  name: title,
+  url: 'https://gritty.co.jp/services/gym/',
+  image: 'https://gritty.co.jp/images/gym/gym-hero-lunge.webp',
+  description: has(g.lead) ? g.lead : undefined,
+  address: {
+    '@type': 'PostalAddress',
+    postalCode: '731-0141',
+    addressRegion: '広島県',
+    addressLocality: '広島市安佐南区',
+    streetAddress: '相田1丁目6-26 LeaDream野球場内',
+    addressCountry: 'JP',
+  },
+  openingHours: 'Mo-Su 09:00-21:00',
+  priceRange: '¥3,300〜',
+  parentOrganization: { '@type': 'Organization', name: site.company_name, url: 'https://gritty.co.jp/' },
+};
+
 const info = [
   { k: '所在地', v: g.address },
   { k: 'アクセス', v: g.access },
@@ -44,7 +64,7 @@ const info = [
   { k: '持ち物・服装', v: g.belongings },
 ].filter((r) => has(r.v));
 ---
-<Base title={title} description={has(g.lead) ? g.lead : 'GRITTYが運営するパフォーマンスジム。'} noindex={!g.published} ownHeader>
+<Base title={title} description={has(g.lead) ? g.lead : 'GRITTYが運営するパフォーマンスジム。'} noindex={!g.published} ownHeader jsonLd={gymLd}>
   <GymHeader slot="header" />
   <!-- Hero -->
   <section class="relative isolate overflow-hidden bg-ink">

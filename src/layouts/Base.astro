@@ -9,9 +9,33 @@ interface Props {
   noindex?: boolean;
   /** true のときサイト共通ヘッダーを出さない（ページ側で専用ヘッダーを置く） */
   ownHeader?: boolean;
+  /** ページ固有の構造化データ（JSON-LD） */
+  jsonLd?: Record<string, unknown>;
 }
 
-const { title, description, noindex = false, ownHeader = false } = Astro.props;
+const { title, description, noindex = false, ownHeader = false, jsonLd } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://gritty.co.jp').href;
+const isHome = Astro.url.pathname === '/';
+// 会社の構造化データ（検索結果で会社名と公式サイトを結びつけるため）
+const orgLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: site.company_name,
+  alternateName: ['ＧＲＩＴＴＹ株式会社', 'グリッティ株式会社', 'GRITTY', 'GRITTY Inc.'],
+  url: 'https://gritty.co.jp/',
+  logo: 'https://gritty.co.jp/images/logo-mark.png',
+  email: site.email,
+  foundingDate: '2026-05',
+  address: {
+    '@type': 'PostalAddress',
+    postalCode: '183-0006',
+    addressRegion: '東京都',
+    addressLocality: '府中市',
+    streetAddress: '緑町1-16-3',
+    addressCountry: 'JP',
+  },
+  sameAs: [site.line_url],
+};
 const pageTitle = title ? `${title} | GRITTY株式会社` : 'GRITTY株式会社 | 現場の感覚を、科学の裏付けへ。';
 const pageDesc = description ?? 'GRITTY株式会社は、野球を中心としたスポーツデータ分析・フィジカル測定・コンディション管理、アプリ開発、動画制作を行う会社です。測定して終わりではなく、選手の成長に伴走します。';
 ---
@@ -27,6 +51,10 @@ const pageDesc = description ?? 'GRITTY株式会社は、野球を中心とし�
   <meta property="og:description" content={pageDesc} />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content={site.company_name} />
+  <meta property="og:url" content={canonical} />
+  {!noindex && <link rel="canonical" href={canonical} />}
+  {isHome && <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />}
+  {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   <link rel="icon" type="image/png" href="/images/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
