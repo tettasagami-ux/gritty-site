@@ -1,6 +1,6 @@
 ---
 import site from '../data/site.json';
-import { bookUrl, squareReady } from '../lib/gym';
+import { bookUrl, squareReady, g, has } from '../lib/gym';
 interface Props { heading?: string; text?: string; image?: string }
 const { heading = 'まずは、身体を知るところから。', text = '完全予約制のマンツーマンで、一人ひとりに向き合います。', image = '/images/gym/studio-wide.webp' } = Astro.props;
 ---
@@ -18,5 +18,10 @@ const { heading = 'まずは、身体を知るところから。', text = '完�
       <a href={bookUrl} target="_blank" rel="noopener" class="rounded-full bg-cyan px-8 py-3.5 font-bold text-ink transition hover:bg-white">{squareReady ? '予約する' : 'LINEで予約する'}</a>
       <a href={site.line_url} target="_blank" rel="noopener" class="rounded-full border border-white/40 px-8 py-3.5 font-bold text-white transition hover:border-cyan hover:text-cyan">LINEで相談する</a>
     </div>
+    {has(g.instagram_url) && (
+      <p class="mt-8 text-sm text-white/70">
+        トレーニングの様子はInstagramで発信中　<a href={g.instagram_url} target="_blank" rel="noopener" class="font-bold text-cyan underline-offset-4 hover:underline">@gritty_performance</a>
+      </p>
+    )}
   </div>
 </section>

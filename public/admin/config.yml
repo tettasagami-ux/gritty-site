@@ -55,6 +55,7 @@ collections:
           - { label: "紹介文（2〜3行）", name: "lead", widget: "text", required: false }
           - { label: "メイン画像", name: "hero_image", widget: "image", required: false }
           - { label: "予約サイト（Square）のURL", name: "square_url", widget: "string", required: false }
+          - { label: "InstagramのURL", name: "instagram_url", widget: "string", required: false }
           - label: "3回券の購入リンク（Squareの支払いリンク）"
             name: "tickets"
             widget: "object"

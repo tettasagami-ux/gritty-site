@@ -53,6 +53,7 @@ const gymLd = {
   openingHours: 'Mo-Su 09:00-21:00',
   priceRange: '¥3,300〜',
   parentOrganization: { '@type': 'Organization', name: site.company_name, url: 'https://gritty.co.jp/' },
+  sameAs: has(g.instagram_url) ? [g.instagram_url] : undefined,
 };
 
 const info = [
