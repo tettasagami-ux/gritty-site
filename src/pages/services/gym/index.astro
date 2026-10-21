@@ -50,6 +50,7 @@ const gymLd = {
     streetAddress: '相田1丁目6-26 LeaDream野球場内',
     addressCountry: 'JP',
   },
+  telephone: site.tel,
   openingHours: 'Mo-Su 09:00-21:00',
   priceRange: '¥3,300〜',
   parentOrganization: { '@type': 'Organization', name: site.company_name, url: 'https://gritty.co.jp/' },
@@ -58,6 +59,7 @@ const gymLd = {
 
 const info = [
   { k: '所在地', v: g.address },
+  { k: '電話番号', v: site.tel },
   { k: 'アクセス', v: g.access },
   { k: '営業時間', v: g.hours },
   { k: '定休日', v: g.closed },
