@@ -1,0 +1,133 @@
+---
+import Base from '../../layouts/Base.astro';
+import site from '../../data/site.json';
+
+// イベント情報（LP：junior-athlete-dock.netlify.app と内容をそろえる）
+const LP = 'https://junior-athlete-dock.netlify.app/';
+const APPLY_SOLO = 'https://jad-monshin-prod.vercel.app/#solo';
+const APPLY_TEAM = 'https://jad-monshin-prod.vercel.app/#register';
+const IMG = 'https://gritty.co.jp/images/events/junior-athlete-dock-2026.webp';
+const desc = '2026年12月13日（日）、広島ホームテレビ（広島市中区）で小学4〜6年生を対象にした野球肘検診「ジュニアアスリートドック2026」を開催します。専門医のエコー検査、肩・肘の可動域チェック、ストレッチ教室を無料で受けられます。定員300名・先着順。';
+
+const eventLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: 'ジュニアアスリートドック2026（広島・小学生の野球肘検診）',
+  description: desc,
+  image: [IMG],
+  startDate: '2026-12-13T09:00:00+09:00',
+  endDate: '2026-12-13T17:30:00+09:00',
+  eventStatus: 'https://schema.org/EventScheduled',
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  isAccessibleForFree: true,
+  maximumAttendeeCapacity: 300,
+  typicalAgeRange: '9-12',
+  location: {
+    '@type': 'Place',
+    name: '広島ホームテレビ',
+    address: { '@type': 'PostalAddress', streetAddress: '白島北町19-2', addressLocality: '広島市中区', addressRegion: '広島県', addressCountry: 'JP' },
+  },
+  organizer: [
+    { '@type': 'Organization', name: site.company_name, url: 'https://gritty.co.jp/' },
+    { '@type': 'Organization', name: 'SIGN株式会社' },
+  ],
+  offers: {
+    '@type': 'Offer',
+    price: 0,
+    priceCurrency: 'JPY',
+    availability: 'https://schema.org/InStock',
+    url: LP,
+    validThrough: '2026-11-30T23:59:59+09:00',
+  },
+  performer: [
+    { '@type': 'Person', name: '古島 弘三', jobTitle: '慶友整形外科病院 副院長 ／ スポーツ医学センター長' },
+    { '@type': 'PerformingGroup', name: 'トクサンTV' },
+  ],
+};
+
+const outline = [
+  ['日時', '2026年12月13日（日）9:00〜17:30（受付 8:40〜）'],
+  ['会場', '広島ホームテレビ（広島市中区白島北町19-2）'],
+  ['対象', '小学4〜6年生（野球チームに所属しているお子さま）'],
+  ['参加費', '無料'],
+  ['定員', '300名（先着順）'],
+  ['申込締切', '2026年11月30日（月）※定員に達し次第終了'],
+  ['持ち物', 'グラブ、動きやすい服装'],
+  ['雨天時', '屋内会場のため決行'],
+  ['主催', 'GRITTY株式会社 ／ SIGN株式会社'],
+  ['協力', '広島ホームテレビ'],
+];
+const program = [
+  { t: '野球肘検診', d: '専門医によるエコー検査で、肘の状態を確認します。所見があった場合は、その場で今後の対応をお伝えします。' },
+  { t: '検診可動域チェック', d: '肩と肘の可動域を測定し、動きの硬さや左右差を確認します。肘や肩への負担を減らす身体の使い方もお伝えします。' },
+  { t: 'ストレッチ教室', d: '柔軟性を上げるストレッチと、自宅でも続けられるセルフケアを実演します。ウォーミングアップの組み立て方も学べます。' },
+];
+const schedule = [
+  ['9:00〜12:00', '野球肘検診（午前の部）'],
+  ['12:00〜13:00', 'トクサンTV トークショー（観覧は申込時の希望者から抽選）'],
+  ['13:30〜17:30', '野球肘検診（午後の部）／検診可動域チェック・ストレッチ教室'],
+  ['17:30', '閉会・記念撮影'],
+];
+---
+<Base fullTitle="ジュニアアスリートドック2026｜12月13日（日）広島で小学生の野球肘検診・参加無料 | GRITTY株式会社" description={desc} jsonLd={eventLd}>
+  <section class="relative isolate overflow-hidden bg-ink">
+    <img src="/images/events/junior-athlete-dock-2026.webp" alt="野球チームの子どもたちと医師" class="absolute inset-0 -z-10 h-full w-full object-cover opacity-35" loading="eager" />
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/85 to-ink/30"></div>
+    <div class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
+      <p class="font-en text-lg italic tracking-wide text-cyan">Event / 2026.12.13 SUN｜Hiroshima</p>
+      <h1 class="mt-4 font-display font-bold text-white">
+        <span class="block text-base text-white/85 md:text-lg">12月13日（日）広島・小学4〜6年生の野球肘検診（参加無料）</span>
+        <span class="mt-2 block text-4xl md:text-5xl">ジュニアアスリートドック2026</span>
+      </h1>
+      <p class="mt-6 max-w-xl leading-loose text-white/80">野球を辞める理由が、ケガであってはいけない。専門医のエコー検査で、痛みが出る前の肘を診ます。可動域チェックとストレッチ教室まで、無料で受けられます。</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href={APPLY_SOLO} class="rounded-full bg-cyan px-7 py-3.5 font-bold text-ink transition hover:bg-white">保護者の方：お子さま1人で申し込む</a>
+        <a href={APPLY_TEAM} class="rounded-full border border-white/50 px-7 py-3.5 font-bold text-white transition hover:border-cyan hover:text-cyan">監督・コーチの方：チームで申し込む</a>
+      </div>
+      <p class="mt-4 text-sm text-white/70">定員300名・先着順／申込締切 11月30日（月）</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="mx-auto max-w-3xl px-4 py-16 md:px-6 md:py-20">
+      <h2 class="font-display text-2xl font-bold text-ink md:text-3xl">開催概要</h2>
+      <dl class="mt-6 divide-y divide-line border-y border-line text-sm md:text-base">
+        {outline.map(([k, v]) => (
+          <div class="grid gap-1 py-4 md:grid-cols-[8rem_1fr] md:gap-6"><dt class="font-bold text-ink">{k}</dt><dd class="text-ink/75">{v}</dd></div>
+        ))}
+      </dl>
+
+      <h2 class="mt-16 font-display text-2xl font-bold text-ink md:text-3xl">当日受けられる3つのこと</h2>
+      <div class="mt-6 grid gap-4 md:grid-cols-3">
+        {program.map((p, i) => (
+          <div class="rounded-2xl border border-line bg-white p-6">
+            <p class="font-en text-xl text-teal">{String(i + 1).padStart(2, '0')}</p>
+            <h3 class="mt-2 font-display text-lg font-bold text-ink">{p.t}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/70">{p.d}</p>
+          </div>
+        ))}
+      </div>
+
+      <h2 class="mt-16 font-display text-2xl font-bold text-ink md:text-3xl">保護者・指導者向け講演</h2>
+      <p class="mt-4 leading-loose text-ink/75">「日本の野球指導を考える ― ドミニカ野球から学ぶ障害予防のヒント ―」<br />登壇：古島 弘三（慶友整形外科病院 副院長 ／ スポーツ医学センター長）</p>
+
+      <h2 class="mt-16 font-display text-2xl font-bold text-ink md:text-3xl">一日の流れ</h2>
+      <dl class="mt-6 divide-y divide-line border-y border-line text-sm md:text-base">
+        {schedule.map(([k, v]) => (
+          <div class="grid gap-1 py-4 md:grid-cols-[8rem_1fr] md:gap-6"><dt class="font-bold text-teal">{k}</dt><dd class="text-ink/75">{v}</dd></div>
+        ))}
+      </dl>
+
+      <div class="mt-16 rounded-2xl bg-ink p-8 text-white">
+        <h2 class="font-display text-2xl font-bold">お申し込み</h2>
+        <p class="mt-3 text-sm leading-loose text-white/75">チームで参加する場合は、監督・コーチの方がまとめて申し込みます。保護者の方が個別に申し込む必要はありません。詳しい内容は特設ページをご覧ください。</p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href={APPLY_SOLO} class="rounded-full bg-cyan px-6 py-3 text-sm font-bold text-ink transition hover:bg-white">保護者の方：お子さま1人で申し込む</a>
+          <a href={APPLY_TEAM} class="rounded-full border border-white/50 px-6 py-3 text-sm font-bold text-white transition hover:border-cyan hover:text-cyan">監督・コーチの方：チームで申し込む</a>
+          <a href={LP} class="rounded-full border border-white/50 px-6 py-3 text-sm font-bold text-white transition hover:border-cyan hover:text-cyan">特設ページを見る</a>
+        </div>
+        <p class="mt-6 text-xs text-white/60">お問い合わせ：{site.company_name}　TEL {site.tel}（受付 9:00〜18:00）</p>
+      </div>
+    </div>
+  </section>
+</Base>
