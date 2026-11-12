@@ -27,7 +27,7 @@ const teamPhotos = [
   { img: '/images/gym/team-03.webp', alt: '講習会の参加者との集合写真' },
 ];
 ---
-<Base title={`所属トレーナー｜${title}`} description={`${title}の所属トレーナー紹介。理学療法士として病院・大学・チームで経験を積んだトレーナーが、身体評価からトレーニングまでマンツーマンで担当します。`} noindex={!g.published} ownHeader>
+<Base title={`所属トレーナー｜${title}`} fullTitle={`トレーナー紹介（理学療法士）｜広島市安佐南区のパーソナルジム ${title}`} description={`${title}の所属トレーナー紹介。理学療法士として病院・大学・チームで経験を積んだトレーナーが、身体評価からトレーニングまでマンツーマンで担当します。`} noindex={!g.published} ownHeader>
   <GymHeader slot="header" />
   <!-- Page head -->
   <section class="relative isolate overflow-hidden bg-ink">
@@ -35,7 +35,7 @@ const teamPhotos = [
     <div class="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/90 to-ink/10"></div>
     <div class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
       <p class="font-en text-lg italic tracking-wide text-cyan"><a href="/services/gym/" class="hover:underline">{title}</a> / Trainers</p>
-      <h1 class="mt-4 font-display text-4xl font-bold text-white md:text-5xl">所属トレーナー</h1>
+      <h1 class="mt-4 font-display font-bold text-white"><span class="block text-base text-white/85 md:text-lg">広島市安佐南区のパーソナルジム</span><span class="mt-2 block text-4xl md:text-5xl">所属トレーナー</span></h1>
       <p class="mt-6 max-w-md leading-loose text-white/75">
         病院のリハビリ現場、大学、スポーツチーム。<br />
         医療とスポーツの両方を知る理学療法士が、<br class="hidden md:block" />あなたの身体に向き合います。

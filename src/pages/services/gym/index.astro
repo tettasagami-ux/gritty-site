@@ -67,7 +67,7 @@ const info = [
   { k: '持ち物・服装', v: g.belongings },
 ].filter((r) => has(r.v));
 ---
-<Base title={title} description={has(g.lead) ? g.lead : 'GRITTYが運営するパフォーマンスジム。'} noindex={!g.published} ownHeader jsonLd={gymLd}>
+<Base title={title} fullTitle={`広島市安佐南区のパーソナルジム・ピラティス｜${title}（LeaDream野球場内）`} description={has(g.lead) ? g.lead : 'GRITTYが運営するパフォーマンスジム。'} noindex={!g.published} ownHeader jsonLd={gymLd}>
   <GymHeader slot="header" />
   <!-- Hero -->
   <section class="relative isolate overflow-hidden bg-ink">
@@ -76,7 +76,7 @@ const info = [
     <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 pb-14 pt-10 md:grid-cols-[6fr_5fr] md:px-6 md:pb-20 md:pt-16">
       <div>
         <p class="font-en text-lg italic tracking-wide text-cyan"><a href="/services/" class="hover:underline">Service</a> / {has(g.name_en) ? g.name_en : 'Performance Gym'}</p>
-        <h1 class="mt-4 font-en text-4xl font-semibold tracking-wide text-white md:text-6xl"><Tbd value={g.name} label="ジム名" /></h1>
+        <h1 class="mt-4 text-white"><span class="block font-display text-base font-bold tracking-wide text-white/85 md:text-lg">広島市安佐南区のパーソナルジム・ピラティス</span><span class="mt-2 block font-en text-4xl font-semibold tracking-wide md:text-6xl"><Tbd value={g.name} label="ジム名" /></span></h1>
         <p class="mt-6 font-display text-2xl font-bold leading-relaxed text-white md:text-3xl"><Tbd value={g.catch} label="キャッチコピー" block /></p>
         <p class="mt-5 max-w-lg text-sm leading-loose text-white/75 md:text-base"><Tbd value={g.lead} label="紹介文（2〜3行）" block /></p>
         <ul class="mt-6 flex flex-wrap gap-2 text-xs font-medium text-white/85">

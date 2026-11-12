@@ -39,7 +39,7 @@ const divisions = [
   { k: '一般', v: '社会人・上記以外の方' },
 ];
 ---
-<Base title={`メニュー・料金｜${title}`} description={`${title}のメニューと料金。身体評価・パーソナルトレーニング・パーソナルピラティス。体験・回数券あり、入会金なし。`} noindex={!g.published} ownHeader>
+<Base title={`メニュー・料金｜${title}`} fullTitle={`料金・メニュー｜広島市安佐南区のパーソナルジム・ピラティス ${title}`} description={`${title}のメニューと料金。身体評価・パーソナルトレーニング・パーソナルピラティス。体験・回数券あり、入会金なし。`} noindex={!g.published} ownHeader>
   <GymHeader slot="header" />
   <!-- Page head -->
   <section class="relative isolate overflow-hidden bg-ink">
@@ -47,7 +47,7 @@ const divisions = [
     <div class="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/85 to-ink/40"></div>
     <div class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
       <p class="font-en text-lg italic tracking-wide text-cyan"><a href="/services/gym/" class="hover:underline">{title}</a> / Menu &amp; Price</p>
-      <h1 class="mt-4 font-display text-4xl font-bold text-white md:text-5xl">メニュー・料金</h1>
+      <h1 class="mt-4 font-display font-bold text-white"><span class="block text-base text-white/85 md:text-lg">広島市安佐南区のパーソナルジム</span><span class="mt-2 block text-4xl md:text-5xl">メニュー・料金</span></h1>
       <p class="mt-6 max-w-xl leading-loose text-white/75">すべてマンツーマン・完全予約制です。入会金や月会費はなく、必要なときに必要な分だけご利用いただけます。</p>
       <ul class="mt-7 flex flex-wrap gap-2 text-xs font-medium text-white/85">
         {['入会金なし', '表示はすべて税込', '体験あり', '3回券あり'].map((x) => <li class="rounded-full border border-white/25 px-3 py-1">{x}</li>)}
